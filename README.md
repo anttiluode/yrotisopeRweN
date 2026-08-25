@@ -229,35 +229,56 @@ Demote the idea if:
 - a non-oscillating receiver is reinforced anyway;
 - the effect requires source/target labels during development;
 - ordinary sparse adaptive filtering learns the same useful graph more simply;
-- later task utility shows that synchronization merely preserves synchrony rather than useful information.
+- task utility shows that synchronization merely preserves synchrony rather than useful information.
 
-The final one is now the important test.
+---
+
+# Gate 2 — coherence says can; utility says keep
+
+Gate 1 still had a cheat: the connection that synchronized best was, by construction, the connection we wanted.
+
+Gate 2 removes that convenience. Each sender now has **two receiver twins with identical oscillatory timing**. Phase coherence cannot distinguish them. The twins differ only in downstream consequence: one helps a 3-D prediction/control target and the other pushes the same output in the wrong direction.
+
+The graph gets no correct-edge label. Delay growth still uses phase compatibility only. Structural mass additionally receives an error-modulated eligibility signal telling it whether more of an edge would reduce the current task residual.
+
+Twelve-seed held-out result:
+
+| arm | useful mass | target correlation |
+|---|---:|---:|
+| phase only | 0.4877 | 0.0158 |
+| utility only | 0.3720 | 0.2436 |
+| **phase + utility** | **0.9992** | **0.9061** |
+| destroyed utility | 0.4846 | 0.0023 |
+| digital oracle | 1.0000 | 0.9248 |
+
+The full graph chooses the useful twin for all three senders on all 12 seeds. Phase-only finds the compatible pair but remains almost exactly 50/50 between useful and harmful twins. Destroying the utility signal leaves the same 50/50 ambiguity. Utility-only cannot reliably discover routes because timing remains wrong.
+
+So the new decomposition is:
+
+```text
+PHASE / DELAY
+can this route communicate?
+
+TASK UTILITY
+is that communication useful?
+
+MASS
+is it worth preserving this route?
+```
+
+Full receipt: `results/GATE2.md`. Raw metrics: `results/gate2_metrics.json`.
 
 ---
 
 # Next
 
-Gate 1 makes "phase compatibility" itself worth preserving. That is too easy.
+Gate 2 is still a one-shot developmental world. Once the right path hardens, the environment stays put.
 
-The next attack should create **multiple phase-compatible routes**, only some of which help prediction or control.
+The next attack should **reverse which coherent twin is useful after consolidation**.
 
-Then ask:
+Ask whether the graph can retract obsolete structure and regrow an alternative without either freezing forever or dissolving its useful wiring. That is a stability-plasticity test, and it makes "exploratory mass" an actual computational quantity rather than decoration.
 
-> **Can local fast coherence propose structure while slower task utility decides which coherent path actually earns mass?**
-
-That would separate
-
-```text
-can communicate
-```
-
-from
-
-```text
-is worth wiring.
-```
-
-Only after that is it worth returning to local oscillator synchronization, drifting clocks, dendritic state, or a GPU-hostile sparse implementation.
+Only after that should we return to local oscillator synchronization, no supplied clock, dendritic state, or GPU-hostile sparse execution.
 
 ---
 
@@ -267,6 +288,7 @@ Only after that is it worth returning to local oscillator synchronization, drift
 python -m pip install -r requirements.txt
 python experiments/gate0_relative_phase_routing.py
 python experiments/gate1_self_wiring_phase_graph.py
+python experiments/gate2_useful_coherence.py
 python -m unittest discover -s tests -v
 ```
 
@@ -276,4 +298,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **A dynamical graph can have fast effective connectivity and slow structural connectivity. In the toy tested here, repeated phase-compatible traffic can tune propagation delay and consolidate scarce edge mass into a sparse persistent graph. Fast routing can compile into slow wiring.**
+> **A dynamical graph can separate fast effective connectivity from slow structural connectivity. Phase-compatible timing can discover routes that are physically viable; task utility can decide which viable route earns scarce structural mass. Fast routing can compile into slow wiring, but coherence says only "can" — utility says "keep."**
