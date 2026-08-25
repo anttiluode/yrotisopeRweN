@@ -1,0 +1,33 @@
+{
+  "n_seeds": 12,
+  "reserve": 0.02,
+  "hard_prune_threshold": 0.01,
+  "phase1_nmse_mean": 0.0009589227173879334,
+  "phase1_nmse_std": 2.931539858402751e-05,
+  "phase1_useful_mass_mean": 0.9795488169543883,
+  "phase1_mass_mean": [
+    0.97954477,
+    0.02044714,
+    0.97955286,
+    0.02045523
+  ],
+  "switch_latency_mean": 13.0,
+  "switch_latency_std": 0.0,
+  "phase2_nmse_mean": 0.0009784687066435541,
+  "phase2_nmse_std": 3.327497433066479e-05,
+  "phase2_useful_mass_mean": 0.97945593051716,
+  "phase2_mass_mean": [
+    0.02052284,
+    0.97943470,
+    0.02056530,
+    0.97947716
+  ],
+  "zero_reserve_phase2_nmse_mean": 2.012685770199497,
+  "zero_reserve_phase2_useful_mass_mean": 0.0,
+  "unlimited_phase1_nmse_mean": 0.00044961278060092375,
+  "unlimited_phase2_nmse_mean": 1.0063186080566668,
+  "signed_phase1_nmse_mean": 5.3224789051477013e-05,
+  "signed_phase2_nmse_mean": 5.948548569027521e-05,
+  "no_consequence_phase1_nmse_mean": 0.8061121507535508,
+  "shuffled_eligibility_phase1_nmse_mean": 0.4863572332347368
+}
