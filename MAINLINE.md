@@ -22,10 +22,9 @@ BROADCAST
     -> COMPOSE
     -> CONTEXT
     -> CONSEQUENCE
+    -> ALLOCATE
     -> CONSOLIDATE
 ```
-
-`CONTEXT` is written explicitly now because Gate 7 showed that the receiver can remain transiently changed after the context event itself is gone.
 
 Treat this as the main hypothesis, not as an established architecture.
 
@@ -102,6 +101,40 @@ A one-scalar recurrent trace ties or slightly beats the circular receiver throug
 
 Receipt: `results/GATE7.md`.
 
+### Consequence — Gate 8
+
+Gate 8 gives the transient conjunctions delayed downstream consequences without allowing any structural growth.
+
+Each remembered context makes two conjunctions available, but only one is useful:
+
+```text
+context 0: q00 useful, q11 irrelevant
+context 1: q10 useful, q01 irrelevant
+```
+
+The conjunction vector disappears before the scalar error arrives. The only bridge back is a decaying local eligibility trace.
+
+At consequence delay 8:
+
+```text
+delayed eligibility NMSE      0.000059
+utility-weight alignment      0.9999999
+no eligibility                1.0001
+shuffled consequence          1.0096
+shuffled eligibility          1.0928
+context/state without q       1.0005
+```
+
+A batch readout with the old context explicitly buffered is essentially exact, and batch regression on the transient conjunction features ties the delayed learner.
+
+So nothing exotic is being claimed about the optimizer.
+
+The surviving operation is:
+
+> **A later consequence can selectively modify slow efficacy only when the earlier transient conjunction left an eligibility trace that still identifies what happened.**
+
+Receipt: `results/GATE8.md`.
+
 ---
 
 # Branch map
@@ -113,63 +146,70 @@ Receipt: `results/GATE7.md`.
                           /              \
          DIFFERENTIATION SIDE BRANCH     MAIN HYPOTHESIS
                    |                           |
-                Sanger                     COMPOSE      Gate 6
+                Sanger                     COMPOSE       Gate 6
                    |                           |
-                AMUSE                      CONTEXT      Gate 7
+                AMUSE                      CONTEXT       Gate 7
                    |                           |
-                SOBI?                     CONSEQUENCE  next
+                SOBI?                     CONSEQUENCE   Gate 8
                                                |
-                                           ALLOCATION
+                                            ALLOCATE    next
                                                |
-                                           CONSOLIDATE
+                                          CONSOLIDATE
                                                |
                                         mass / geometry
+                                               |
+                                   stability / plasticity
 ```
 
 Do not add SOBI to the main hypothesis merely because it is nearby in the literature.
 
 ---
 
-# Next main-line missing operation — CONSEQUENCE
+# Next main-line missing operation — ALLOCATE / CONSOLIDATE
 
-Gate 7 gives consequence something real to act on: a useful later composition can depend on a transient state transition caused by an earlier event.
+The earlier growth experiments had a conceptual weakness: synchrony or utility could reinforce structure, but the object being preserved was still somewhat vague.
 
-The next gate must **not** simply reward the context bit or the currently active input.
-
-Instead create several possible transient context-dependent conjunctions, only one of which helps a downstream task, and ask:
-
-> **Can consequence assign credit back to the earlier state transition / conjunction that made the later useful computation possible?**
-
-That is a temporal credit-assignment problem inside the main hypothesis.
-
-Keep structural growth off for this gate.
-
-A clean Gate 8 should contain:
+Gates 6–8 now give consolidation a much cleaner candidate object:
 
 ```text
-EARLIER CONTEXT
-writes transient receiver state
-
-LATER BROADCASTS
-produce one of several possible conjunctions
-
-DOWNSTREAM CONSEQUENCE
-arrives after the conjunction
-
-ELIGIBILITY / LOCAL TRACE
-is the only bridge back to what happened earlier
+earlier context
+    -> receiver state
+    -> later nonlinear conjunction
+    -> local eligibility
+    -> delayed consequence
+    -> slow evidence that THIS relation mattered
 ```
 
-Attackers / kills:
+Now introduce a finite capacity / structural budget and ask:
 
-- no eligibility trace: delayed consequence should not know what earlier relation to reinforce;
-- shuffle consequence across trials: learning should disappear;
-- immediate supervised mode label: digital upper bound;
-- ordinary scalar eligibility trace: allowed to tie or win;
-- no growth, no mass, no geometry yet;
-- avoid rewarding the context code directly.
+> **Can repeatedly useful conjunctions claim persistent capacity while unused or harmful conjunctions lose it?**
 
-Only if delayed consequence can select useful transient compositions should the main line proceed to bounded allocation and physical consolidation.
+This should not merely multiply Gate-8 efficacy by Gate-1 mass.
+
+The gate needs an actual resource conflict: preserving one useful relation must make another more expensive or less available.
+
+Useful attackers / kills:
+
+- ordinary fixed-capacity sparse or regularized readout;
+- unlimited-capacity control: if everything can grow, allocation has not been tested;
+- utility removed: structure should not know what to preserve;
+- eligibility shuffled: delayed consequence should consolidate the wrong thing or nothing;
+- mass without consequence: mere co-activation should not win;
+- freeze after consolidation, then **reverse which conjunction is useful**.
+
+That last reversal reconnects directly to the unfinished Gate-2 stability/plasticity problem.
+
+A successful system must not:
+
+```text
+freeze forever
+or
+dissolve everything
+```
+
+It must retain enough exploratory / reallocatable capacity to move persistent structure when consequence changes.
+
+Only after that survives should geometry/path length be allowed back in. First prove capacity allocation without spatial decoration.
 
 ---
 
@@ -185,10 +225,10 @@ partial old state
 
 Do not call Gate 7 associative memory. It only established transient context-dependent interpretation over a finite noisy horizon.
 
-Likewise, structural stability/plasticity from Gate 2 remains unfinished and should be revisited when consolidation is reintroduced.
+Likewise, morphology, dendritic geometry, and path growth should not return until finite allocation itself has a job.
 
 ---
 
 # Compass sentence
 
-> **Broadcast -> receiver-relative fit -> compose -> context -> consequence -> consolidate. If an experiment does not attack one of those verbs, it is probably a side branch.**
+> **Broadcast -> receiver-relative fit -> compose -> context -> consequence -> allocate -> consolidate. If an experiment does not attack one of those verbs, it is probably a side branch.**
