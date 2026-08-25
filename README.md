@@ -6,7 +6,7 @@
 
 This is a falsification-first computational abstraction, not a biological neuron simulator.
 
-The main hypothesis currently reads:
+The main hypothesis now reads:
 
 ```text
 broadcast
@@ -18,42 +18,41 @@ broadcast
  -> growing sparse matrix
  -> continuous internal dynamics
  -> output / broadcast
- -> ? recurrent loop
+ -> recurrent traffic
+ -> grow the recurrent loop
 ```
 
-A differentiation side branch remains in the repo:
+A differentiation side branch remains:
 
 ```text
 Oja -> Sanger/GHA -> AMUSE
 ```
 
-It is useful machinery, but not the current destination.
+Useful machinery, not the current destination.
 
 ---
 
 # The object now
 
-Externally the abstraction can still be drawn as a point:
+Externally:
 
 ```text
 ●
 ```
 
-Internally it now has three distinct persistent variables:
+Internally one point carries several distinct states:
 
 ```text
-Z(t)    fast/local computational state
-E(t)    slower eligibility / credit state
+Z(t)    local computational state
+E(t)    delayed-credit / eligibility state
 M       persistent structural allocation
 ```
 
-and a separate output boundary.
+and its output can enter other continuously running points and later return.
 
-At any moment many broadcasts may already have contributed to `Z(t)`, old events may still be represented in `E(t)`, and structural mass `M` may still be reallocating from older experience.
+The latest architectural correction is therefore stronger than "output does not reset the neuron":
 
-The latest important correction is:
-
-> **output does not mean the internal computation has ended.**
+> **some state can live inside a point, while other state can live in circulating traffic between points.**
 
 ---
 
@@ -61,147 +60,155 @@ The latest important correction is:
 
 | gate | isolated question | surviving result |
 |---|---|---|
-| 0 | Can receiver state alter which broadcast matters now? | receiver-relative fast state can gate temporally structured input; digital features slightly win |
+| 0 | Can receiver state alter which broadcast matters now? | yes; receiver-relative fast state can gate temporally structured input |
 | 1 | Can timing/geometry write persistent structure? | delay + finite mass can turn temporal viability into sparse routing |
 | 2 | Is coherence itself purpose? | no: coherence says CAN, consequence says KEEP |
 | 3 | What does bounded growth buy? | a bound turns amplification into allocation |
-| 6 | Can fixed slow structure compute different relations? | yes, if fast state selects among nonlinear conjunctions; scalar mode switch ties phase |
-| 7 | Can vanished context change a later identical input? | yes, through transient receiver state; scalar recurrent state ties/slightly wins |
-| 8 | Can delayed consequence credit vanished conjunctions? | yes, if an eligibility trace still addresses what happened |
-| 9 | Can positive-only growth retract obsolete structure? | finite conserved capacity supplies retraction; reserve preserves plasticity |
-| 10 | Can a whole matrix grow without supplied rival pairs? | yes: one global budget grows a sparse matrix and later reallocates it elsewhere |
-| 11 | Does the growing cell survive without trial resets? | yes: continuous local state, eligibility and mass coexist while output is emitted |
+| 6 | Can fixed slow structure compute different relations? | yes, if fast state selects among nonlinear conjunctions; scalar switch ties phase |
+| 7 | Can vanished context change a later identical input? | yes through transient receiver state; scalar recurrence ties/slightly wins |
+| 8 | Can delayed consequence credit vanished conjunctions? | yes if eligibility still addresses what happened |
+| 9 | Can positive-only growth retract obsolete structure? | conserved capacity supplies retraction; reserve preserves plasticity |
+| 10 | Can a whole matrix grow without supplied rivals? | yes: one global budget grows a sparse matrix and later reallocates it |
+| 11 | Does the cell survive without trial resets? | yes: local state, eligibility and mass coexist while output is emitted |
+| 12 | Can state live in literal recurrent traffic? | yes: A<->B holds a vanished cue; cut return kills it |
+| 13 | Can diffuse matrix capacity grow the useful loop? | yes: recurrence grows only when persistence is useful |
 
-Full receipts are in `results/GATE0.md` through `results/GATE11.md`.
-
----
-
-# Gate 10 — growing the matrix
-
-Gate 10 replaces hand-written rival pairs with a dense `6 x 6` field of possible relations:
-
-```text
-Q_ij = A_i * B_j
-```
-
-All 36 cells share one conserved capacity pool.
-
-Four useful cells acquire about `96.8%` of total mass. When utility moves to four completely disjoint cells, the old sparse matrix dissolves and a new sparse matrix grows elsewhere.
-
-This is the repo's current meaning of **structural growth**:
-
-```text
-many possible local computations
-        ↓
-finite structural budget
-        ↓
-useful traffic claims capacity
-        ↓
-effective matrix becomes sparse
-        ↓
-changed utility moves the investment
-```
-
-Receipt: `results/GATE10.md`.
+Receipts: `results/GATE0.md` through `results/GATE13.md`.
 
 ---
 
-# Gate 11 — the loop does not reset
+# Gate 11 — continuous cell
 
-Gate 10 still treated the world like isolated samples. Gate 11 removes that convenience.
-
-Each candidate relation is now a continuously driven leaky local compartment:
+Each candidate relation becomes a continuously driven local state:
 
 ```text
 Q_ij(t) = A_i(t) B_j(t)
 Z_ij(t+1) = alpha_ij Z_ij(t) + (1-alpha_ij) Q_ij(t)
 ```
 
-with heterogeneous fixed decay constants.
+with a separate eligibility trace and conserved structural mass.
 
-Structural mass remains globally conserved, eligibility runs continuously, and a separate thresholded output observes the ongoing somatic-like readout:
+The cell can emit without clearing its internal computation.
 
-```text
-V(t) = sum_ij M_ij Z_ij(t)
-```
-
-Output does **not** clear the local state or eligibility.
-
-Six seeds, `30,000` uninterrupted steps:
+Six seeds, 30,000 uninterrupted steps:
 
 ```text
-continuous cell
 phase-1 voltage NMSE       0.01010
 phase-2 voltage NMSE       0.00993
 phase-1 output F1          0.9551
 phase-2 output F1          0.9547
-phase-1 useful mass        0.9095
 phase-2 useful mass        0.9112
-new matrix > .90           8334 +/- 924 steps, 6/6 seeds
 ```
 
-Kills:
-
-```text
-no consequence
-    -> phase-2 NMSE 6.4021
-
-shuffled eligibility
-    -> phase-2 NMSE 0.8724
-    -> no .90 reallocation
-
-no separate eligibility trace
-    -> phase-2 NMSE 1.4461
-    -> local computational state is not enough for delayed credit
-
-reset local state whenever output fires
-    -> phase-2 NMSE 0.0774
-    -> final new mass 0.8314
-    -> no .90 reallocation
-
-make all compartments instantaneous
-    -> phase-2 NMSE 0.0928
-    -> final new mass 0.7379
-```
-
-A boring exact delay-buffer plus signed-gradient attacker wins strongly:
-
-```text
-phase-1 NMSE        0.000113
-phase-2 NMSE        0.000114
-phase-2 useful mass 0.9931
-adaptation           3952 +/- 631 steps
-```
-
-So this is not an optimizer claim.
-
-The surviving architecture is:
-
-> **local state computes; eligibility remembers credit; structural mass remembers investment; output is a boundary rather than an episode terminator.**
+A boring exact delay-buffer + signed update is much better.
 
 Receipt: `results/GATE11.md`.
 
 ---
 
-# Why Aizenbud + Leterrier entered here
+# Gate 12 — recurrent traffic
 
-The papers were introduced after the computational chain existed, rather than being used to decorate it.
-
-Aizenbud et al. (PNAS 2026) link single-neuron functional complexity to dendritic extent/area, branching organization and nonlinear synaptic integration. The useful lesson for this abstraction is not “grow lots of branches,” but that extended, compartmentalized, nonlinear local integration can matter.
-
-Leterrier's AIS review (J. Neurosci. 2018) emphasizes a specialized output compartment that generates/shapes action potentials and separates somatodendritic from axonal organization, while itself exhibiting activity-dependent plasticity.
-
-Together they motivated a modest computational separation:
+Freeze structural matrices and ask only whether recurrence matters.
 
 ```text
-continuously evolving internal computation
-        ↓
-separate output boundary
-        ↓
-broadcast
+brief cue -> Cell A -> Cell B -> back to A
+              ^                 |
+              +-----------------+
 ```
 
-Neither paper validates the equations used here or implies that biological neurons implement a `6 x 6` matrix.
+The cue enters only A for ten steps, disappears, and later an opposite cue must overwrite the state.
+
+Twelve seeds:
+
+```text
+full loop
+first cue-free hold        1.0000
+second hold after flip     1.0000
+A state                    +0.9068 -> -0.9068
+
+cut B -> A return
+hold accuracy              0.0000
+state                      ~0
+
+scramble return timing
+first hold                 1.0000
+second overwrite           0.0000
+
+low loop gain
+hold accuracy              0.0000
+```
+
+Important correction: make every local matrix compartment instantaneous and the recurrent loop still holds perfectly. For this toy, the memory can live in network recurrence rather than local persistence.
+
+A one-scalar recurrent unit also solves it perfectly.
+
+Receipt: `results/GATE12.md`.
+
+---
+
+# Gate 13 — grow the loop
+
+Now remove the hand-set recurrent mass.
+
+Both points begin with diffuse `6 x 6` matrices:
+
+```text
+M_ij = 1/36
+```
+
+A brief alternating cue enters A every 180 steps. In the memory world the desired signed state must survive after the cue is gone.
+
+Delayed consequence acts through each cell's eligibility trace; only positive local growth evidence is allowed; conserved capacity supplies retraction.
+
+Six seeds, 15,000 continuous steps:
+
+```text
+memory-required world
+late cue-free accuracy     1.0000
+A direct-cue mass          0.5508
+A B->A return mass         0.4152
+B A->B forwarding mass     0.9650
+closed-loop mass           0.4152
+first >.90 memory          1560 +/- 85 steps
+```
+
+Kills:
+
+```text
+no learning
+late memory                0.0000
+closed-loop mass           0.0278
+
+shuffled eligibility
+late memory                0.0000
+closed-loop mass           0.0234
+```
+
+The causal control is the important result.
+
+Use the same cue stream and the same available feedback, but require output only while the cue is physically present. Persistence is now useless:
+
+```text
+no-memory world
+A direct-cue mass          0.9231
+A return mass              0.0020
+B forwarding mass          0.1367
+closed-loop mass           0.0020
+```
+
+So feedback does not automatically claim structural capacity. The return leg grows only when the consequence requires state to survive between cues.
+
+Receipt: `results/GATE13.md`.
+
+---
+
+# Why Aizenbud + Leterrier entered here
+
+Aizenbud et al. (PNAS 2026) motivated treating dendritic complexity as extended, compartmentalized, nonlinear integration rather than simply counting branches.
+
+Leterrier's AIS review (J. Neurosci. 2018) motivated separating continuously evolving internal computation from an output/broadcast boundary.
+
+They do **not** validate our equations, matrix representation, eligibility rule, mass conservation, or recurrent-learning mechanism. Gate 12/13 are generic recurrent computation tests, not hippocampal models.
 
 ---
 
@@ -209,33 +216,40 @@ Neither paper validates the equations used here or implies that biological neuro
 
 Gate 4: independent Oja points duplicate the strongest covariance mode; Sanger/GHA differentiates them. Explicit PCA wins.
 
-Gate 5: when source identity exists only in lagged statistics, AMUSE can recover it. Shuffle time or equalize temporal laws and it fails.
+Gate 5: when identity exists only in lagged statistics, AMUSE can recover it. Shuffle time or equalize temporal laws and it fails.
 
-Do not continue to SOBI unless a future problem genuinely requires several lags.
+Do not continue to SOBI unless a future wall genuinely needs several lags.
 
 ---
 
-# Next
+# What is next
 
-Gate 11 removed the artificial trial reset, but it has **not yet created a literal recurrent neural loop**.
-
-The next clean attack is therefore:
+Gate 13 still contains one enormous convenience:
 
 ```text
-continuous growing Cell A
-        ↓ broadcast
-continuous growing Cell B
-        ↓ broadcast
-back toward A
+matrix coordinate (1,0)
+= peer broadcast x constant carrier
 ```
 
-External signals should enter while recurrent traffic is already circulating.
+The learner does not have to discover *which incoming traffic is the useful return*; we named the coordinate for it.
 
-For that gate, keep the supplied product coordinates `A_i * B_j`. Do not simultaneously remove the feature scaffold; otherwise failure is uninterpretable.
+So do **not** scale to a giant recurrent network yet.
 
-Kill the return path, scramble its timing, reset state on output, shuffle eligibility, and keep an ordinary small recurrent/signed-gradient attacker in the room.
+Next attack:
 
-Only if the recurrent loop survives should the known relation coordinates be removed.
+```text
+several generic return channels
+stale / irrelevant / noisy broadcasts mixed in
+small generic nonlinear local field
+        ↓
+finite consequence-driven growth
+        ↓
+can the matrix discover which returning traffic deserves capacity?
+```
+
+Controls must include a no-memory world, shuffled channel identity, shuffled eligibility, cut-after-growth, and an ordinary trained recurrent attacker.
+
+Only if recurrence can be selected without a hand-labelled peer coordinate should the network expand beyond two points.
 
 ---
 
@@ -260,6 +274,8 @@ python experiments/gate8_delayed_consequence.py
 python experiments/gate9_capacity_reversal.py
 python experiments/gate10_growing_matrix.py
 python experiments/gate11_continuous_loop.py
+python experiments/gate12_recurrent_loop.py
+python experiments/gate13_grow_the_loop.py
 
 python -m unittest discover -s tests -v
 ```
@@ -270,4 +286,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **The sender broadcasts into a continuously occupied receiver. Local state decides what current and recent activity can compose; eligibility carries delayed causal credit; finite structural capacity grows a sparse effective matrix; an output event can broadcast onward without clearing the internal computation. The next question is whether several such continuously running points can form a recurrent loop that remains learnable and plastic.**
+> **A continuously running point can keep local computational state while broadcasting; recurrent traffic between points can itself carry state; and when persistence matters, delayed consequence acting under finite structural capacity can grow a closed recurrent path from diffuse matrix mass. The next question is whether the system can discover useful returning traffic without being handed a named recurrent coordinate.**
