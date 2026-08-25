@@ -1,0 +1,14 @@
+{
+  "n_seeds": 12,
+  "plain_hebb_diverged_fraction": 1.0,
+  "plain_hebb_max_norm_mean": 1002307.2764455125,
+  "oja_final_norm_mean": 1.0000587795677611,
+  "oja_final_norm_std": 2.735945075119168e-05,
+  "oja_axis_alignment_mean": 0.9999286283329444,
+  "linear_recovery_mean": 0.7016524985095135,
+  "linear_duplication_mean": 1.0,
+  "nonlinear_recovery_mean": 0.9944370108723288,
+  "nonlinear_recovery_std": 0.0005960424283401879,
+  "nonlinear_duplication_mean": 0.016228885126049024,
+  "same_phase_nonlinear_recovery_mean": 0.3979329338995572
+}
