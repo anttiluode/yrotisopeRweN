@@ -1,0 +1,39 @@
+{
+  "memory_task": {
+    "early_hold_accuracy": {"mean": 0.7365724381625441, "std": 0.009513878632526932},
+    "late_hold_accuracy": {"mean": 1.0, "std": 0.0},
+    "a_cue_mass": {"mean": 0.5508196322447564, "std": 0.005821058541215378},
+    "a_return_mass": {"mean": 0.4151708410381638, "std": 0.005822199388282697},
+    "b_forward_mass": {"mean": 0.9649845971791359, "std": 5.9192150148667236e-06},
+    "closed_loop_mass": {"mean": 0.4151708410381638, "std": 0.005822199388282697},
+    "first_good_step": {"mean": 1560.0, "std": 84.8528137423857}
+  },
+  "no_learning": {
+    "early_hold_accuracy": {"mean": 0.0, "std": 0.0},
+    "late_hold_accuracy": {"mean": 0.0, "std": 0.0},
+    "a_cue_mass": {"mean": 0.02777777777777778, "std": 3.469446951953614e-18},
+    "a_return_mass": {"mean": 0.02777777777777778, "std": 3.469446951953614e-18},
+    "b_forward_mass": {"mean": 0.02777777777777778, "std": 3.469446951953614e-18},
+    "closed_loop_mass": {"mean": 0.02777777777777778, "std": 3.469446951953614e-18}
+  },
+  "shuffled_eligibility": {
+    "early_hold_accuracy": {"mean": 0.0, "std": 0.0},
+    "late_hold_accuracy": {"mean": 0.0, "std": 0.0},
+    "a_cue_mass": {"mean": 0.024331722370310217, "std": 0.005927221219859198},
+    "a_return_mass": {"mean": 0.02339272753873901, "std": 0.0036771594410750885},
+    "b_forward_mass": {"mean": 0.028591842997754108, "std": 0.0022953401876549813},
+    "closed_loop_mass": {"mean": 0.02339272753873901, "std": 0.0036771594410750885}
+  },
+  "no_memory_required": {
+    "early_hold_accuracy": {"mean": 0.9400471142520613, "std": 0.006820388076232494},
+    "late_hold_accuracy": {"mean": 0.9269140164899882, "std": 0.00807175392939195},
+    "a_cue_mass": {"mean": 0.9230634851149181, "std": 0.023258201740701076},
+    "a_return_mass": {"mean": 0.0020457176697792163, "std": 0.0005923740574830923},
+    "b_forward_mass": {"mean": 0.1366680090842489, "std": 0.041381717896752795},
+    "closed_loop_mass": {"mean": 0.0020457176697792163, "std": 0.0005923740574830923}
+  },
+  "scalar_recurrent_attacker": {
+    "hold1_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold2_accuracy": {"mean": 1.0, "std": 0.0}
+  }
+}
