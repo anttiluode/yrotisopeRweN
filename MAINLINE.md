@@ -1,20 +1,18 @@
 # yrotisopeRweN — main hypothesis compass
 
-This file exists because several mathematically well-paved side roads are gravitational.
+This file exists because several well-paved side roads are gravitational.
 
 The differentiation branch remains useful but is **not** the current destination:
 
 ```text
-Oja -> one direction
-Sanger/GHA -> population differentiation
-AMUSE -> temporal differentiation from one lag
+Oja -> Sanger/GHA -> AMUSE
 ```
 
-The main hypothesis is different:
+The main hypothesis is:
 
 > **The sender broadcasts. The receiver decides whether an arrival belongs here; local dynamics decide what it becomes when combined with what is already here; consequence decides whether that temporary relation deserves persistent capacity.**
 
-The current chain is:
+The main chain now reads:
 
 ```text
 BROADCAST
@@ -24,11 +22,12 @@ BROADCAST
     -> CONSEQUENCE
     -> ALLOCATE
     -> GROW SPARSE MATRIX
-    -> CONTINUE RUNNING WHILE OUTPUT IS EMITTED
-    -> ? RECURRENT BROADCAST LOOP
+    -> KEEP RUNNING WHILE OUTPUT IS EMITTED
+    -> RECURRENT TRAFFIC
+    -> GROW THE RECURRENT LOOP
 ```
 
-Every completed verb has a small falsification gate. The question mark is intentional.
+Every arrow above has at least one deliberately small falsification gate.
 
 ---
 
@@ -36,7 +35,7 @@ Every completed verb has a small falsification gate. The question mark is intent
 
 ## Gate 0 — receiver-relative fit
 
-Receiver-specific fast phase/state can change which temporally structured arrivals are effective. A global oscillation is insufficient. A boring digital phase-feature attacker slightly wins.
+Receiver-specific fast state can alter which temporally structured arrivals are effective. A global oscillation is insufficient. A boring digital phase-feature attacker slightly wins.
 
 Receipt: `results/GATE0.md`.
 
@@ -48,13 +47,13 @@ Receipt: `results/GATE1.md`.
 
 ## Gate 2 — coherence says CAN; consequence says KEEP
 
-Timing-identical routes can have opposite downstream consequences. Coherence alone cannot decide which should persist.
+Timing-identical routes can have opposite downstream effects. Coherence alone cannot say which should persist.
 
 Receipt: `results/GATE2.md`.
 
 ## Gate 3 — bounded growth becomes allocation
 
-Oja is useful on the main line as one precise demonstration of a primitive principle:
+Oja is useful on the main line mainly as one exact example of a primitive principle:
 
 > **correlated growth plus a bound becomes allocation rather than unlimited amplification.**
 
@@ -66,8 +65,6 @@ Receipt: `results/GATE3.md`.
 
 The same fixed nonlinear bank computes different relations when only fast receiver state changes. An ordinary scalar mode switch ties phase exactly.
 
-Surviving claim:
-
 > **fast receiver state can choose which relation fixed slow structure computes.**
 
 Receipt: `results/GATE6.md`.
@@ -76,17 +73,13 @@ Receipt: `results/GATE6.md`.
 
 Move the state-setting event into the past, let it disappear, insert distractors, then present the same later broadcast. Leftover receiver state changes the later composition. A one-scalar recurrent attacker ties/slightly wins.
 
-Surviving claim:
-
-> **receiver-carried context is the primitive; phase is merely one possible coordinate system.**
+> **receiver-carried context is the primitive; phase is merely one coordinate system.**
 
 Receipt: `results/GATE7.md`.
 
 ## Gate 8 — CONSEQUENCE
 
-Transient conjunctions disappear before a scalar consequence arrives. A decaying eligibility trace is the bridge back. Shuffle the trace or remove it and delayed credit collapses.
-
-Surviving claim:
+Transient conjunctions disappear before scalar consequence arrives. A decaying eligibility trace is the bridge back. Shuffle the trace or remove it and delayed credit collapses.
 
 > **delayed consequence needs a surviving address for what happened earlier.**
 
@@ -94,221 +87,222 @@ Receipt: `results/GATE8.md`.
 
 ## Gate 9 — finite allocation / reversible consolidation
 
-Allow positive growth evidence but no explicit negative shrink command. Conserved capacity supplies retraction; a small exploratory reserve preserves alternatives after consolidation. Hard pruning freezes; unlimited positive growth accumulates incompatible structure. Signed gradient wins numerically.
+Positive growth evidence is allowed but there is no explicit negative shrink command. Conserved capacity supplies retraction; a small exploratory reserve preserves alternatives. Hard pruning freezes; unlimited positive growth accumulates incompatible structure. Signed gradient wins numerically.
 
 Receipt: `results/GATE9.md`.
 
 ## Gate 10 — GROWING MATRIX
 
-Remove Gate 9's hand-written rival pairs. Put 36 possible relations in one `6 x 6` field under one global unit capacity budget.
+Remove hand-written rival pairs. Put 36 possible relations in one `6 x 6` field under one conserved capacity budget.
 
-A diffuse matrix grows four useful cells to about `96.8%` of total mass. When the useful pattern moves to four completely disjoint cells, the matrix dissolves and regrows there. Hard prune prevents regrowth; unlimited growth remembers too much; signed global gradient wins.
-
-Surviving claim:
+A diffuse matrix grows four useful cells to about `96.8%` of total mass. When utility moves to four disjoint cells, the matrix dissolves and regrows there.
 
 > **positive local utility evidence plus finite shared capacity can grow a sparse effective matrix without being told which structural variables are rivals.**
 
 Receipt: `results/GATE10.md`.
 
-## Gate 11 — CONTINUOUS CELL: output is not a reset
+## Gate 11 — CONTINUOUS CELL
 
-Gate 10 still had an artificial boundary: its data came as isolated samples/trials.
+Remove the trial boundary. Every matrix cell now has a continuously evolving local state `Z(t)`, a separate eligibility state `E(t)`, and persistent structural mass `M`.
 
-Gate 11 removes that boundary.
+Output is observed through a separate boundary and does **not** clear the internal state.
 
-Every matrix cell now has a continuously evolving local state:
-
-```text
-Q_ij(t) = A_i(t) B_j(t)
-Z_ij(t+1) = alpha_ij Z_ij(t) + (1-alpha_ij) Q_ij(t)
-```
-
-with fixed heterogeneous `alpha_ij` values. Structural mass `M` still shares one conserved budget, and a separate eligibility state `E` carries delayed credit.
-
-The cell therefore contains three distinct timescales/roles:
+Six seeds, 30,000 uninterrupted steps:
 
 ```text
-Z(t)    local computational state
-E(t)    credit-assignment state
-M       persistent structural allocation
-```
-
-A continuous soma-like readout is thresholded by a separate output observer. Emitting does **not** clear `Z`, `E`, or `M`.
-
-Six seeds, 30,000 uninterrupted timesteps:
-
-```text
-continuous cell
 phase-1 voltage NMSE       0.01010
 phase-2 voltage NMSE       0.00993
 phase-1 output F1          0.9551
 phase-2 output F1          0.9547
 phase-1 useful mass        0.9095
 phase-2 useful mass        0.9112
-new matrix > .90           8334 +/- 924 stream steps, 6/6 seeds
 ```
 
-Important kills:
+Important decomposition:
 
 ```text
-no consequence
-    -> phase-2 NMSE 6.4021
-
-shuffled eligibility identity
-    -> phase-2 NMSE 0.8724
-    -> no .90 reallocation
-
-persistent local state but no explicit eligibility trace
-    -> phase-2 NMSE 1.4461
-    -> no .90 reallocation
-
-zero local state/eligibility whenever output fires
-    -> phase-2 NMSE 0.0774
-    -> phase-2 useful mass 0.8314
-    -> no .90 reallocation
-
-instantaneous relation cells, no local temporal persistence
-    -> phase-2 NMSE 0.0928
-    -> phase-2 useful mass 0.7379
-    -> no .90 reallocation
+Z(t)    computational state
+E(t)    credit state
+M       structural investment
 ```
-
-A boring exact delay-buffer + signed-update attacker is much better:
-
-```text
-phase-1 NMSE              0.000113
-phase-2 NMSE              0.000114
-phase-2 useful mass       0.9931
-reallocation              3952 +/- 631 steps
-```
-
-So Gate 11 is not an optimizer claim.
-
-The useful decomposition is:
 
 > **local state computes; eligibility remembers credit; structural mass remembers investment. Output is a boundary, not an episode terminator.**
 
 Receipt: `results/GATE11.md`.
 
+## Gate 12 — RECURRENT TRAFFIC
+
+Freeze structural matrices so recurrence itself gets the blame or credit.
+
+A brief cue enters only Cell A. A broadcasts to B; B broadcasts back to A. The cue disappears, distractors continue, and later an opposite cue must overwrite the circulating state.
+
+Twelve seeds:
+
+```text
+full A <-> B loop
+first cue-free hold accuracy      1.0000
+second hold after overwrite       1.0000
+A mean state                      +0.9068 -> -0.9068
+
+cut B -> A return
+hold accuracy                     0.0000
+state                             ~0
+
+scramble return timing
+first hold                        1.0000
+second overwrite                  0.0000
+old state keeps resurfacing
+
+low loop gain
+hold accuracy                     0.0000
+```
+
+Important ablation: make every local matrix compartment instantaneous. The recurrent pair still holds and overwrites perfectly.
+
+So Gate 11 and Gate 12 describe **different places state can live**:
+
+```text
+inside a point
+between points in recurrent traffic
+```
+
+A one-scalar recurrent attacker also solves the task perfectly.
+
+> **recurrent state is the earned primitive; the matrix is not required for this toy memory.**
+
+Receipt: `results/GATE12.md`.
+
+## Gate 13 — GROW THE LOOP
+
+Turn structural growth back on. Both cells begin with completely diffuse `6 x 6` mass (`1/36` per cell).
+
+Brief alternating cues enter A. In the memory world, desired state must persist for the whole cue-free interval. Delayed consequence reaches both cells only through their own eligibility traces.
+
+Six seeds, 15,000 uninterrupted steps:
+
+```text
+memory-required world
+late cue-free accuracy            1.0000
+A direct-cue mass                 0.5508
+A B->A return mass                0.4152
+B A->B forwarding mass            0.9650
+closed-loop mass                  0.4152
+first rolling >.90 memory         1560 +/- 85 steps
+```
+
+Kills:
+
+```text
+no learning
+late memory                       0.0000
+closed-loop mass                  0.0278
+
+shuffled eligibility
+late memory                       0.0000
+closed-loop mass                  0.0234
+```
+
+Causal control: use the same cues and same available feedback, but require output only while the cue is physically present. Persistence is useless.
+
+```text
+no-memory world
+A direct-cue mass                 0.9231
+A return mass                     0.0020
+B forwarding mass                 0.1367
+closed-loop mass                  0.0020
+```
+
+B can grow a partial echo because it correlates with the cue, but A does not invest in the return leg, so no functional loop closes.
+
+> **feedback availability alone does not force recurrence. When persistence is useful, finite consequence-driven growth reallocates matrix capacity into a closed A -> B -> A path; when persistence is unnecessary, A becomes almost purely feedforward.**
+
+Receipt: `results/GATE13.md`.
+
 ---
 
-# What the two biology papers earned — and what they did not
+# Biology papers: what they earned and what they did not
 
-Two papers were deliberately introduced only after the growing-matrix story existed.
+Aizenbud et al. (PNAS 2026) motivated the distinction between simple branch count and extended, compartmentalized, nonlinear local integration. Leterrier (J. Neurosci. 2018) motivated separating continuously evolving somatodendritic computation from an output/broadcast boundary.
 
-### Aizenbud et al. 2026
+They did **not** establish our matrix equations, eligibility rule, mass conservation, recurrent-learning rule, or any hippocampal interpretation.
 
-Their detailed neuron models support the importance of extended dendritic morphology, compartmentalized integration, and nonlinear interactions among coactive synapses. Total dendritic area and long bifurcating paths predict their Functional Complexity Index much better than branch count alone.
-
-Computational lesson used here:
-
-```text
-not "more branches = intelligence"
-
-but
-
-extended local integration + nonlinear compartments
-can make a single cell's I/O transformation richer
-```
-
-That motivated persistent local matrix states, not a literal dendrite simulator.
-
-### Leterrier 2018
-
-The AIS is a specialized boundary between somatodendritic input processing and axonal propagation; it initiates/shapes the action potential, and its composition/morphology can adapt on several timescales.
-
-Computational lesson used here:
-
-```text
-continuous internal computation
-        -> output boundary
-        -> broadcast
-```
-
-not
-
-```text
-input -> output -> clear the neuron
-```
-
-Neither paper establishes our exact equations, mass rule, eligibility trace, or matrix representation.
+The current recurrent gates are deliberately generic. They test recurrent traffic as a computational primitive, not a specific brain circuit.
 
 ---
 
 # Differentiation side branch
 
-## Gate 4
-Independent Oja points duplicate the strongest covariance mode; Sanger/GHA makes the population divide covariance structure. Explicit PCA wins.
+Gate 4: independent Oja points duplicate the strongest covariance mode; Sanger/GHA differentiates them. Explicit PCA wins.
 
-Receipt: `results/GATE4.md`.
+Gate 5: when zero-lag covariance contains no identity but lag-1 statistics do, AMUSE recovers temporal causes. Shuffle time or equalize temporal laws and it fails.
 
-## Gate 5
-When zero-lag covariance contains no source identity but lag-1 statistics do, AMUSE recovers temporal causes. Shuffle time or equalize memory laws and the advantage disappears.
-
-Receipt: `results/GATE5.md`.
-
-Do not add SOBI unless a future wall specifically requires several lagged statistics.
+Do not continue to SOBI unless a future wall specifically requires several lags.
 
 ---
 
 # Current object
 
-The point is no longer well described as one weight vector evaluated once per example.
+The point-under-the-point is now better described as a continuously occupied structure embedded in a network:
 
 ```text
-incoming broadcasts never really stop
-        ↓
-local relation field is continuously driven
-        ↓
-local compartment states Z(t) overlap in time
-        ↓
-continuous readout can emit
-        ↓
-output leaves the cell
+incoming broadcasts
+      ↓
+local nonlinear state Z(t)
+      ↓
+continuous output / broadcast
+      ↓
+other continuously running points
+      ↓
+returning traffic
 
-while internally:
+while in parallel:
 
-Z(t) keeps evolving
-E(t) keeps assigning delayed credit
-M keeps reallocating finite structural capacity
+Z(t) -> eligibility E(t) -> delayed consequence -> structural mass M
 ```
 
-The sparse matrix is therefore becoming a **continuously occupied dynamical structure**, not merely a static mask.
+Structural growth can now affect not only what a cell computes locally, but whether **network traffic closes into a persistent recurrent path**.
 
 ---
 
-# NEXT — make the loop literal, but change only one scaffold
+# NEXT — remove the named recurrent coordinate, not add more neurons
 
-Gate 11 removed the artificial trial reset. It has **not** yet shown a closed recurrent neural loop.
-
-The next clean attack is:
+Gate 13 still knows that matrix coordinate `(1,0)` means:
 
 ```text
-continuous Cell A
-      ↓ broadcast
-continuous Cell B
-      ↓ broadcast
-back toward A
+peer broadcast x constant carrier
 ```
 
-External signals should enter while recurrent traffic is already circulating. The cells must continue their local dynamics, eligibility, and structural allocation while broadcasts re-enter them.
+That is now the largest cheat.
 
-Do **not** simultaneously remove the known product coordinates. Keep `A_i * B_j` for this gate so a recurrent failure has one interpretation.
+Do **not** immediately scale to a many-region recurrent network or invent a hippocampal analogue.
 
-Attacks should include:
+Next clean attack:
 
 ```text
-cut the return path
-randomize return timing
-reset internal state on output
+several generic incoming channels
+random / generic local nonlinear coordinates
+one of them happens to carry useful returning traffic
+others carry distractors / stale / irrelevant traffic
+        ↓
+finite consequence-driven growth
+        ↓
+can the matrix discover which returning traffic deserves structural capacity?
+```
+
+Controls:
+
+```text
+memory-required vs no-memory world
+shuffle incoming channel identities
 shuffle delayed eligibility
-ordinary small RNN / signed-gradient attacker
+cut the useful return after growth
+ordinary trained recurrent attacker
 ```
 
-Only after a recurrent loop survives should the supplied relation coordinate field be attacked.
+Only if useful recurrence can be selected without a named peer coordinate should the network expand beyond two points.
 
 ---
 
 # Compass sentence
 
-> **Broadcast -> receiver-relative fit -> compose -> context -> consequence -> finite allocation -> growing sparse matrix -> continuous internal dynamics -> broadcast again. Gate 11 shows the cell need not reset when it emits; the next test is whether several such continuously running cells can form a recurrent loop without losing causal credit or structural plasticity.**
+> **Broadcast -> receiver-relative fit -> compose -> context -> consequence -> finite allocation -> growing sparse matrix -> continuous internal dynamics -> recurrent traffic -> consequence-grown recurrent structure. The next job is to remove the hand-labelled recurrent coordinate and see whether useful returning traffic can be discovered rather than supplied.**
