@@ -26,6 +26,7 @@ BROADCAST
  -> RECURRENT TRAFFIC
  -> GROW THE LOOP
  -> DISCOVER USEFUL RETURNING TRAFFIC
+ -> SELECT IT IN A GENERIC INTERNAL BASIS
 ```
 
 ---
@@ -33,7 +34,7 @@ BROADCAST
 # Main-line receipts
 
 ## Gate 0 — receiver-relative fit
-Receiver-specific fast state can change which temporally structured arrivals are effective. Digital phase features slightly win.
+Receiver-specific fast state changes which temporally structured arrivals are effective. Digital phase features slightly win.
 
 ## Gate 1 — timing can write structure
 Delay/path state plus finite mass can turn repeated temporal viability into sparse routing.
@@ -54,10 +55,10 @@ An earlier event can disappear while leftover receiver state changes how a later
 Delayed consequence needs a surviving eligibility address for the transient relation that occurred earlier.
 
 ## Gate 9 — reversible consolidation
-Positive-only growth plus conserved capacity can retract obsolete allocation; a small reserve preserves plasticity.
+Positive-only growth plus conserved capacity retracts obsolete allocation; a small reserve preserves plasticity.
 
 ## Gate 10 — GROWING MATRIX
-One shared budget over a dense `6 x 6` relation field grows a sparse effective matrix and later reallocates it elsewhere without supplied rival pairs.
+One shared budget over a dense relation field grows a sparse effective matrix and later reallocates it elsewhere without supplied rival pairs.
 
 ## Gate 11 — CONTINUOUS CELL
 Remove trial resets. Local computational state `Z(t)`, credit state `E(t)`, and structural mass `M` coexist while output is emitted.
@@ -82,16 +83,14 @@ scramble return timing                old state persists, overwrite fails
 low loop gain                         state collapses
 ```
 
-Make every local matrix compartment instantaneous and the loop still works. State can therefore live in network recurrence rather than inside one point.
+Instantaneous local compartments still work. State can live in network recurrence rather than inside one point.
 
-A one-scalar recurrent unit solves the same toy perfectly.
+A one-scalar recurrent unit solves the toy perfectly.
 
 Receipt: `results/GATE12.md`.
 
 ## Gate 13 — GROW THE LOOP
-Start both cells with diffuse `6 x 6` structural mass. Brief alternating cues enter A; the task requires the signed state to persist between cues.
-
-Delayed consequence plus eligibility reallocates finite matrix capacity into a closed path:
+Start both cells with diffuse structural mass. When the task requires cue state to persist, delayed consequence grows a closed recurrent path.
 
 ```text
 late cue-free accuracy        1.0000
@@ -101,71 +100,73 @@ B A->B forwarding mass        0.9650
 closed-loop mass              0.4152
 ```
 
-No learning or shuffled eligibility gives zero late memory.
-
-In the same cue stream with **no persistence requirement**:
-
-```text
-A direct-cue mass             0.9231
-A return mass                 0.0020
-closed-loop mass              0.0020
-```
-
-So feedback availability alone does not force a loop. Recurrence claims capacity when persistence is useful.
+When persistence is unnecessary, A instead spends its capacity on direct cue and the loop stays open.
 
 Receipt: `results/GATE13.md`.
 
 ## Gate 14 — ANONYMOUS RETURN
-Gate 13 still named one coordinate "peer return." Gate 14 gives each cell four generic return channels in a random fixed permutation per seed:
+Remove the label `peer return`. Each point receives several generic incoming return streams; only one carries the current peer broadcast.
 
-```text
-one current peer stream
-three unrelated streams
-```
+With stable channel identities the useful anonymous return acquires mass and memory is perfect. If channel identity is reshuffled every timestep, the loop does not consolidate.
 
-The growth rule is not told which is which.
+Surviving condition:
 
-With stable channel identities:
-
-```text
-late cue-free accuracy        1.0000
-A useful return mass          0.4928
-B useful return mass          0.9650
-A best irrelevant return      0.00103
-closed-loop mass              0.4928
-```
-
-Reshuffle channel identity every timestep:
-
-```text
-late memory                   0.0501
-A useful-return mass          0.00161
-closed-loop mass              0.00161
-A direct-cue mass             0.9630
-```
-
-Shuffle eligibility instead:
-
-```text
-late memory                   0.0000
-closed-loop mass              0.0266
-```
-
-No-memory control:
-
-```text
-A direct-cue mass             0.8650
-A useful-return mass          0.00223
-closed-loop mass              0.00223
-```
-
-Cut the useful return after growth and memory degrades while the matrix begins reallocating back toward direct cue.
-
-The surviving condition is now sharper:
-
-> **Useful recurrence does not need a pre-named feedback coordinate, but it does need stable structural addressability. A returning process can acquire meaning from repeated utility only if it repeatedly occupies a reusable structural address.**
+> **useful recurrence needs stable external addressability, not a semantic feedback label.**
 
 Receipt: `results/GATE14.md`.
+
+## Gate 15 — GENERIC BASIS
+Gate 14 still mapped each incoming channel onto a simple internal coordinate.
+
+Gate 15 replaces that with fixed dense random mixed coordinates. Every internal feature contains all six raw inputs; no feature is a channel axis.
+
+Default 24-feature field, three seeds:
+
+```text
+late cue-free memory                 1.0000
+A effective occupied features       4.83
+B effective occupied features       3.05
+max single raw-channel loading      ~0.56
+```
+
+Scramble which persistent internal feature cell receives each computed feature every timestep:
+
+```text
+late memory                          0.00283
+```
+
+Shuffle eligibility:
+
+```text
+late memory                          0.0000
+```
+
+No structural learning:
+
+```text
+late memory                          0.0000
+```
+
+Grow the generic basis, then cut recurrent returns and freeze learning:
+
+```text
+late memory                          0.0352
+```
+
+Two negative results matter:
+
+```text
+linear random basis                  memory 1.0000
+only six mixed features              memory 1.0000
+```
+
+So Gate 15 does **not** earn nonlinear random features or overcompleteness.
+
+Its surviving result is smaller:
+
+> **Semantic internal coordinates are unnecessary. A stable generic coordinate chart is enough for finite consequence-driven growth to select useful recurrent computation. What must persist is the address itself: eligibility and structural investment need the same local computation to keep landing in the same place.**
+
+Receipt: `results/GATE15.md`.
 
 ---
 
@@ -175,7 +176,7 @@ Aizenbud et al. motivated extended, compartmentalized, nonlinear local integrati
 
 They do not establish our matrix equations, eligibility, capacity conservation, recurrent-growth rule, or any hippocampal interpretation.
 
-The recurrent gates are intentionally generic.
+The recurrent gates remain generic computational tests.
 
 ---
 
@@ -194,7 +195,9 @@ Do not add SOBI unless a future wall genuinely needs multiple lags.
 ```text
 incoming broadcasts
       ↓
-local nonlinear state Z(t)
+stable generic local coordinates
+      ↓
+local state Z(t)
       ↓
 continuous output / broadcast
       ↓
@@ -209,46 +212,46 @@ while in parallel:
 Z(t) -> eligibility E(t) -> delayed consequence -> finite structural mass M
 ```
 
-Persistent capacity can therefore shape both local computation and the recurrent routes through which future state circulates.
+Persistent capacity can therefore shape local computation and the recurrent routes through which future state circulates without requiring semantically named internal axes.
 
 ---
 
-# NEXT — remove the coordinate basis, not add more brain regions
+# NEXT — expand the population, do not add another internal mechanism
 
-Gate 14 removed the semantic label from the return channel, but every incoming channel still maps directly to a simple known matrix coordinate.
+The previous roadmap said not to scale beyond two points until useful recurrence survived without hand-designed coordinates.
 
-That is now the largest scaffold.
+It now has.
 
-Next clean attack:
+The next clean attack is a small population:
 
 ```text
-stable incoming processes
+4-8 continuously running points
         ↓
-randomly mixed / generic overcomplete local coordinates
+many stable anonymous broadcasts
         ↓
-no coordinate is "the return channel"
+generic local coordinate fields
         ↓
-consequence + eligibility + finite growth
+finite structural capacity at every point
         ↓
-can a useful recurrent computational subspace acquire structural mass?
+only some recurrent routes are useful
 ```
 
-Keep the two-point loop for that test. Do **not** simultaneously scale to many points.
+The task should contain both useful and useless possible loops. A memory requirement for one temporary state must **not** make every point recurrent with every other point.
 
 Controls:
 
 ```text
-memory-required vs no-memory task
-shuffle coordinate basis over time
+remove persistence requirement
+cut selected loops after growth
+shuffle structural addresses
 shuffle eligibility
-cut useful return after growth
-ordinary trained recurrent attacker
+ordinary small trained RNN attacker
 ```
 
-Only if a stable useful recurrent subspace can be selected without hand-designed coordinates should the network expand.
+Do not simultaneously add learned geometry, new dendritic machinery, or a new credit rule.
 
 ---
 
 # Compass sentence
 
-> **Broadcast -> receiver-relative fit -> compose -> context -> consequence -> finite allocation -> growing sparse matrix -> continuous state -> recurrent traffic -> grown recurrent structure -> anonymous useful return discovery. Stable addressability has now earned a job. The next wall is whether useful recurrent computation can be selected when even the local coordinate basis is generic rather than supplied.**
+> **Broadcast -> receiver-relative fit -> compose -> context -> consequence -> finite allocation -> growing sparse structure -> continuous state -> recurrent traffic -> grown recurrent loop -> anonymous useful return discovery -> generic stable internal coordinates. Semantic coordinates are gone; stable addressability remains. The next wall is whether a small population grows only the recurrent substructure its task actually needs.**
