@@ -1,0 +1,21 @@
+{
+  "n_seeds": 12,
+  "phase_nmse_mean": 0.0,
+  "phase_nmse_std": 0.0,
+  "scalar_switch_nmse_mean": 0.0,
+  "scalar_switch_nmse_std": 0.0,
+  "phase_switch_max_abs_mean": 0.0,
+  "phase_switch_max_abs_std": 0.0,
+  "static_bilinear_nmse_mean": 0.49782684147283657,
+  "static_bilinear_nmse_std": 0.01778876113841667,
+  "state_linear_nmse_mean": 1.0023814992166866,
+  "state_linear_nmse_std": 0.0016270975809243614,
+  "shuffled_state_nmse_mean": 0.9865988072108255,
+  "shuffled_state_nmse_std": 0.04372225626621041,
+  "frozen_state_nmse_mean": 0.9956536829456729,
+  "frozen_state_nmse_std": 0.035577522276833334,
+  "rebind_relation_gap_mean": 1.2686038612864696,
+  "rebind_relation_gap_std": 0.0362300432523252,
+  "roundtrip_max_abs_mean": 0.0,
+  "roundtrip_max_abs_std": 0.0
+}
