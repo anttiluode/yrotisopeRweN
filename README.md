@@ -1,40 +1,44 @@
 # yrotisopeRweN — the matrix under the point
 
-`NewRepository` backwards, because the interesting road turned out not to be another ordinary forward architecture.
+`NewRepository` backwards.
 
 **Read `MAINLINE.md` before extending this repo.**
 
-The repo now contains two legitimate branches. One is a well-paved differentiation branch (`Oja -> Sanger -> AMUSE`). Keep it. It is not the current destination.
+This repository now contains two branches:
+
+```text
+DIFFERENTIATION SIDE BRANCH
+Oja -> Sanger/GHA -> AMUSE
+
+MAIN HYPOTHESIS
+broadcast
+ -> receiver-relative fit
+ -> compose
+ -> context
+ -> consequence
+ -> finite allocation
+ -> reversible consolidation
+```
+
+The differentiation branch is valid science. It is not currently the destination.
 
 The main hypothesis is:
 
 > **The sender broadcasts. The receiver decides whether an arrival belongs here; local dynamics decide what it becomes when combined with what is already here; consequence decides whether that temporary relation deserves persistent capacity.**
 
-In verbs:
-
-```text
-BROADCAST
-    -> RECEIVER-RELATIVE FIT
-    -> COMPOSE
-    -> CONTEXT
-    -> CONSEQUENCE
-    -> ALLOCATE
-    -> CONSOLIDATE
-```
-
 This is a falsification-first computational abstraction, not a biological neuron simulator.
 
 ---
 
-# The object
+# The point
 
-The point can still be drawn as:
+Externally the object can still be drawn as:
 
 ```text
 ●
 ```
 
-but the abstraction underneath it now contains different timescales:
+The abstraction underneath it contains different timescales:
 
 ```text
 FAST
@@ -44,349 +48,300 @@ recent context
 local nonlinear conjunctions
 
 SLOW
-learned efficacy / utility
 eligibility traces
-bounded allocation
+learned efficacy / utility
+capacity allocation
 
 PERSISTENT
-structural mass / topology / geometry
+consolidated capacity / topology / geometry
 ```
 
-At one instant a network can still be written as a matrix, but that matrix is not one object:
+At one instant:
 
 ```text
-M           persistent structural capacity
+M           persistent capacity / structure
 W           slower learned efficacy
-G(t)        fast receiver-dependent gating
+G(t)        fast receiver-dependent gate
 
 W_eff(t) = M ⊙ W ⊙ G(t)
 ```
 
-The core question is no longer merely "what are the weights?"
-
-It is:
-
-> **How can the same fixed slow structure compute differently because the receiver is in a different transient state, and how can useful transient relations later earn persistent resources?**
+The repo asks what each layer is actually for before allowing them to recombine.
 
 ---
 
-# Main-hypothesis gates
+# Main-hypothesis receipts
 
 ## Gate 0 — receiver-relative fit
 
-`experiments/gate0_relative_phase_routing.py`
+Receiver-specific fast phase/state changes which temporally structured arrivals are effective. A global oscillation is not enough.
 
-Two hidden processes are summed into one scalar mixture but tend to arrive at different phases of a supplied oscillator.
+```text
+learned receiver phases      recovery 0.9947
+phase-feature attacker       recovery 0.9960
+```
 
-Development result:
-
-| arm | source recovery |
-|---|---:|
-| static point | `0.6950` |
-| one global oscillation | `0.5088` |
-| random receiver phases | `0.5991 ± 0.1610` |
-| learned receiver phases | **`0.9947 ± 0.0004`** |
-| digital phase-feature attacker | **`0.9960 ± 0.0006`** |
-
-Destroy phase diversity and the advantage disappears.
-
-Surviving claim:
-
-> **Fast receiver-relative state can decide which temporally structured arrivals are effective. A global wiggle is not enough.**
+Destroy phase diversity and the effect disappears.
 
 Receipt: `results/GATE0.md`.
 
----
-
 ## Gate 1 — timing can write structure
 
-`experiments/gate1_self_wiring_phase_graph.py`
+Delay/path state changes temporal viability; finite structural mass turns repeated viability into sparse routing.
 
-Candidate paths have structural mass and propagation delay. Delay changes whether sender events arrive during a receiver-compatible window; finite mass makes viable routes compete.
-
-Twelve-seed result:
-
-| arm | top-1 target | correct mass |
-|---|---:|---:|
-| static random | `0.3333` | `0.1667` |
-| mass only | `0.3333` | `0.4271` |
-| length only | `0.3333` | `0.1667` |
-| mass + length | **`1.0000`** | **`0.9997`** |
-| destroyed coherence | `0.4444` | `0.2060` |
-
-Surviving claim:
-
-> **Geometry/delay can determine temporal viability, and a finite structural budget can turn repeated viability into sparse wiring.**
+```text
+mass + length self-wiring    top-1 1.0000
+correct mass                 0.9997
+```
 
 Receipt: `results/GATE1.md`.
 
-This was an early structural result. Later gates deliberately remove growth again so we can identify what structure should actually preserve.
-
----
+This was an early structural result. Later gates remove growth again to determine what structure should preserve.
 
 ## Gate 2 — coherence says CAN; consequence says KEEP
 
-`experiments/gate2_useful_coherence.py`
-
-Each sender gets two timing-identical receiver twins with opposite downstream consequences. Phase cannot distinguish them.
-
-| arm | useful mass | target correlation |
-|---|---:|---:|
-| phase only | `0.4877` | `0.0158` |
-| utility only | `0.3720` | `0.2436` |
-| phase + utility | **`0.9992`** | **`0.9061`** |
-| destroyed utility | `0.4846` | `0.0023` |
-
-Surviving decomposition:
+Timing-identical receiver twins have opposite downstream consequences.
 
 ```text
-FIT / TIMING
-can this relation occur?
-
-CONSEQUENCE
-was it useful?
-
-STRUCTURE
-should it persist?
+phase only          useful mass 0.4877
+phase + utility     useful mass 0.9992
 ```
+
+So timing can say a route is viable without saying it is useful.
 
 Receipt: `results/GATE2.md`.
 
-Gate 2 also left an unfinished stability/plasticity problem: once useful structure hardens, what happens if usefulness reverses?
-
----
-
 ## Gate 3 — bounded growth becomes selection
 
-`experiments/gate3_oja_phase_axis.py`
+Plain Hebbian growth explodes. Oja normalisation stabilises a finite direction.
 
-Oja was introduced as a precise example of a more primitive principle:
+The main-line lesson is not "PCA is the brain."
 
-```text
-plain correlated growth -> runaway magnitude
-normalised growth       -> finite directional allocation
-```
+It is:
 
-Plain Hebb hits the `1e6` guard in 12/12 runs. Oja settles at unit norm and learns the dominant phase axis.
-
-But Oja learns an axis, not two opposite identities. A nonlinear/nonnegative local gate is required to make the two ends computationally distinct.
-
-Surviving principle:
-
-> **Bounded growth forces correlated experience to become selective allocation instead of unlimited amplification.**
+> **bounded growth turns amplification into allocation.**
 
 Receipt: `results/GATE3.md`.
 
----
-
 ## Gate 6 — COMPOSE
 
-`experiments/gate6_receiver_state_composition.py`
+Freeze all learning and growth.
 
-Gates 4/5 are described below as a side branch. Gate 6 returns to the main hypothesis and freezes all learning and growth.
-
-Two broadcasts carry:
-
-```text
-A = [a0, a1]
-B = [b0, b1]
-```
-
-The same fixed nonlinear conjunction bank can compute:
+The same two broadcasts and fixed nonlinear conjunction bank can compute two different relations when only fast receiver state changes:
 
 ```text
 state 0:  a0*b0 + a1*b1
 state pi: a0*b1 + a1*b0
 ```
 
-by changing only fast receiver state.
+```text
+receiver-state composer      NMSE 0.0000
+ordinary scalar switch       NMSE 0.0000
+stateless bilinear           NMSE 0.4978
+state but no conjunction     NMSE ~1.00
+```
 
-| arm | NMSE |
-|---|---:|
-| receiver-state composition | **`0.0000`** |
-| ordinary scalar mode switch | **`0.0000`** |
-| stateless bilinear readout | `0.4978` |
-| state but no nonlinear conjunction | `1.0024` |
-| shuffled/frozen state | ~`0.99` |
-
-So phase earned no special expressive status. The scalar switch ties exactly.
-
-Surviving claim:
-
-> **Fixed slow structure plus changed fast receiver state can produce a different nonlinear computation, reversibly and without relearning.**
+Phase is therefore just one possible fast state coordinate in this gate.
 
 Receipt: `results/GATE6.md`.
 
----
-
 ## Gate 7 — CONTEXT
 
-`experiments/gate7_context_memory.py`
-
-Gate 6 was handed its fast state at composition time. Gate 7 moves that information into the past:
+The state-setting context moves into the past and disappears before the later broadcast arrives.
 
 ```text
-context happens
-    -> receiver changes
-context disappears
-    -> unrelated gap events
-identical later A,B arrive
-    -> leftover receiver state changes composition
+context
+ -> receiver state
+ -> gap + distractors
+ -> identical later A,B
+ -> different composition
 ```
 
-No mode input exists at composition time and no weights change.
+Twelve-seed memory curve:
 
-Twelve-seed memory curve under distractors:
+```text
+gap 8   circular NMSE 0.0098   scalar NMSE 0.0058
+gap 16  circular NMSE 0.1242   scalar NMSE 0.1111
+gap 32  circular NMSE 0.4913   scalar NMSE 0.4649
+gap 64  context decode ~chance
+```
 
-| gap | circular state NMSE | scalar state NMSE | context decode |
-|---:|---:|---:|---:|
-| 0 | `0.0000` | `0.0000` | `1.0000` |
-| 8 | **`0.0098`** | **`0.0058`** | `0.9985` |
-| 16 | **`0.1242`** | **`0.1111`** | `0.9244` |
-| 32 | `0.4913` | `0.4649` | `0.6694` |
-| 64 | `0.7195` | `0.6960` | `0.5140` |
+Reset receiver state and the context-dependent contrast disappears.
 
-Reset receiver state before the later broadcast and the context-dependent contrast disappears (`contrast NMSE ~1`). Shuffle the old context and the useful relation disappears too.
+The scalar recurrent attacker ties/slightly wins.
 
-Again the one-scalar recurrent attacker ties/slightly wins.
-
-Surviving claim:
-
-> **Past input can disappear while a transient receiver state remains changed, causing the same later broadcast to be interpreted/composed differently.**
-
-Not "phase memory." Receiver-carried context is the primitive.
+> **Receiver-carried context is the primitive; phase is not.**
 
 Receipt: `results/GATE7.md`.
 
----
-
 ## Gate 8 — CONSEQUENCE
 
-`experiments/gate8_delayed_consequence.py`
+Several transient context-gated conjunctions exist, but only some help a downstream target. They disappear before scalar error arrives.
 
-Gate 8 keeps structural growth off.
-
-Earlier context leaves receiver state. Later broadcasts create several state-gated nonlinear conjunctions. Only some help a downstream target. The conjunction activity disappears before scalar error arrives.
-
-The only bridge back is a decaying local eligibility trace:
-
-```text
-conjunction phi_j
-      -> eligibility e_j
-      ... delay ...
-scalar consequence/error
-      -> Δw_j ∝ error * e_j
-```
+A local eligibility trace is the only bridge back.
 
 At consequence delay 8:
 
-| arm | held-out NMSE |
-|---|---:|
-| delayed eligibility | **`0.000059`** |
-| no eligibility | `1.0001` |
-| shuffled consequence | `1.0096` |
-| shuffled eligibility | `1.0928` |
-| context/state alone, no conjunctions | `1.0005` |
-| batch transient-feature attacker | **`0.000059`** |
-| explicit old-context buffer | ~`0.000000` |
+```text
+delayed eligibility          NMSE 0.000059
+no eligibility               NMSE 1.0001
+shuffled consequence         NMSE 1.0096
+shuffled eligibility         NMSE 1.0928
+context/state only           NMSE 1.0005
+batch transient attacker     NMSE 0.000059
+```
 
-The learned slow efficacy pattern aligns with the hidden useful conjunction pattern at `0.9999999`.
-
-Surviving claim:
-
-> **A delayed consequence can selectively change slow efficacy only when the earlier transient conjunction left a trace that still identifies what happened.**
+The ordinary batch attacker ties once the transient conjunction features exist.
 
 Receipt: `results/GATE8.md`.
 
+## Gate 9 — ALLOCATE / CONSOLIDATE / REALLOCATE
+
+Now allow only **positive local growth evidence** from consequence-modulated eligibility.
+
+Each context family has a conserved two-way capacity budget. Growing one claim must shrink its rival. A small `2%` exploratory reserve survives consolidation.
+
+Phase 1:
+
+```text
+useful pattern     [1, 0, 1, 0]
+mean mass          [.9795, .0204, .9796, .0205]
+NMSE               0.000959
+```
+
+Then usefulness reverses:
+
+```text
+new pattern        [0, 1, 0, 1]
+```
+
+The old exploratory reserve now becomes useful. Across 12 seeds:
+
+```text
+new useful mass > .90 after 13 epochs
+final mean mass   [.0205, .9794, .0206, .9795]
+phase-2 NMSE      0.000978
+```
+
+Two opposite kills:
+
+```text
+zero reserve + hard pruning
+    -> freezes obsolete allocation
+    -> phase-2 NMSE 2.0127
+
+unlimited positive growth
+    -> old and new both accumulate
+    -> phase-2 NMSE 1.0063
+```
+
+The boring signed projected-gradient attacker wins cleanly:
+
+```text
+phase-1 NMSE 0.000053
+phase-2 NMSE 0.000059
+```
+
+So Gate 9 is not an optimizer claim.
+
+Its architectural result is narrower:
+
+> **If local structure mainly receives positive growth evidence, conservation can provide retraction by competition, while a small exploratory reserve preserves plasticity after consolidation.**
+
+Receipt: `results/GATE9.md`.
+
 ---
 
-# Differentiation side branch — keep the receipts, do not follow automatically
+# Differentiation side branch
 
 ## Gate 4 — population differentiation
 
-Independent Oja points all chase the strongest covariance direction. Sanger/GHA adds across-point competition and makes them divide covariance structure.
+Independent Oja points collapse onto the strongest covariance mode. Sanger/GHA makes a population divide covariance structure.
 
-| arm | weight duplication | source recovery |
-|---|---:|---:|
-| independent Oja | `1.0000` | `0.2735` |
-| Sanger/GHA | **`0.0368`** | **`0.9782`** |
-| explicit PCA | — | **`0.9990`** |
-
-A rank-1 kill remains information-rank 1. In a spherical zero-lag world with temporal differences, Sanger/PCA cannot identify the causes.
+```text
+independent Oja     duplication 1.0000   recovery 0.2735
+Sanger/GHA          duplication 0.0368   recovery 0.9782
+explicit PCA                           recovery 0.9990
+```
 
 Receipt: `results/GATE4.md`.
 
-## Gate 5 — one delayed covariance
+## Gate 5 — one-lag temporal identity
 
-In the matched zero-lag world, AMUSE with one lag recovers the temporally distinct causes almost perfectly:
+In a world with spherical zero-lag covariance but different temporal laws:
 
-| arm | source recovery |
-|---|---:|
-| PCA | `0.7643` |
-| Sanger | `0.7440` |
-| AMUSE tau=1 | **`0.999995`** |
-| shuffled time | `0.7872` |
-| same memory law | `0.7940` |
+```text
+PCA                 recovery 0.7643
+Sanger              recovery 0.7440
+AMUSE tau=1         recovery 0.999995
+shuffle time        recovery 0.7872
+same memory law     recovery 0.7940
+```
 
-Surviving claim:
-
-> **History can contain source identity that the instantaneous covariance does not.**
+History can contain identity that the instantaneous covariance does not.
 
 Receipt: `results/GATE5.md`.
 
-This is valid machinery. It is currently a side branch. Do not add SOBI to the main hypothesis unless a future problem specifically requires multi-lag differentiation.
+Do not add SOBI to the main hypothesis unless some later wall genuinely needs several lags.
 
 ---
 
-# What is next — ALLOCATE / CONSOLIDATE
+# Current chain
 
-Gates 6–8 finally give the old growth story a cleaner object to preserve:
-
-```text
-earlier context
-    -> transient receiver state
-    -> later nonlinear conjunction
-    -> eligibility
-    -> delayed consequence
-    -> evidence that THIS relation mattered
-```
-
-The next gate should introduce **finite capacity**, but still avoid geometry at first.
-
-Ask:
-
-> **Can repeatedly useful conjunctions claim persistent capacity while unused/harmful conjunctions lose it?**
-
-The resource conflict must be real: preserving one relation must make another less available.
-
-Critical attacks:
+The repo now has a deliberately tiny implementation of every verb in the hypothesis:
 
 ```text
-unlimited capacity
-    -> if everything grows, allocation was never tested
-
-remove consequence
-    -> co-activation alone should not decide persistence
-
-shuffle eligibility
-    -> delayed utility should consolidate the wrong thing or nothing
-
-ordinary sparse/regularized fixed-capacity model
-    -> boring attacker
-
-reverse usefulness after consolidation
-    -> stability/plasticity kill
+same broadcast
+    ↓
+receiver-relative state says what fits
+    ↓
+local nonlinearity creates candidate relations
+    ↓
+past context persists transiently
+    ↓
+relations leave eligibility
+    ↓
+later consequence marks some useful
+    ↓
+positive growth acts on finite capacity
+    ↓
+competition consolidates useful relations
+    ↓
+exploratory reserve allows later reallocation
 ```
 
-The reversal is load-bearing. A useful system must avoid both:
+This chain is still heavily scaffolded.
+
+That is now the problem.
+
+---
+
+# What is next — remove scaffolding, do not add another verb
+
+The next experiment should attack the **whole chained hypothesis** by removing one hand-designed convenience.
+
+Best candidates:
 
 ```text
-freeze forever
-and
-dissolve everything
+1. remove the explicit pairwise capacity families
+   -> one shared capacity pool / emergent competition
+
+2. remove the supplied binary context code
+   -> preceding sensory patterns instead of C0/C1
+
+3. remove the known conjunction bank
+   -> small generic nonlinear local basis
+
+4. remove isolated trials
+   -> continuous stream with overlapping context, broadcasts,
+      distractors, eligibility, and consequences
 ```
 
-Only after finite allocation survives should structural mass and then geometry/path length be reintroduced.
+The standard recurrent/gated/signed-gradient attacker stays in the room and is allowed to win.
+
+Only if a less hand-designed chained system survives should geometry/path length return as a possible physical parameterization of persistent allocation.
+
+Do not yet claim concepts, associative sequence completion, biological implementation, or a new optimizer.
 
 ---
 
@@ -408,6 +363,7 @@ python experiments/gate5_amuse_history.py
 python experiments/gate6_receiver_state_composition.py
 python experiments/gate7_context_memory.py
 python experiments/gate8_delayed_consequence.py
+python experiments/gate9_capacity_reversal.py
 
 python -m unittest discover -s tests -v
 ```
@@ -418,4 +374,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **The sender broadcasts. Fast receiver state decides what fits and which nonlinear relations are available; past context can persist in that state; delayed consequence can select useful transient conjunctions through eligibility. The next unanswered question is whether finite capacity can turn that repeated usefulness into persistent allocation without destroying the ability to change later.**
+> **The sender broadcasts. Receiver state decides what fits and which nonlinear relations are available; past context can persist in that state; delayed consequence can select useful transient conjunctions through eligibility; finite conserved capacity can turn positive evidence into persistent but reversible allocation. The next job is to remove scaffolding and see whether that chain survives.**
