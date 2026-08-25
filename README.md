@@ -1,51 +1,185 @@
-# yrotisopeRweN — the oscillating point
+# yrotisopeRweN — the oscillating point that starts to wire itself
 
-`NewRepository` backwards, because apparently that is where Tuesday went.
+`NewRepository` backwards, because apparently Tuesday kept going backwards until the matrix started growing.
 
-This repo tests one very small computational abstraction pulled out of the biology-inspired discussion:
+This repo tests a small computational abstraction:
 
-> **A connection can be structurally present yet have a time-varying effective strength because the arriving signal meets a receiver whose internal state is oscillating.**
+> **The wiring graph is potential connectivity. Fast receiver state determines what communicates now. Repeatedly successful timing can slowly change which connections physically persist.**
 
-The incoming signal does **not** need a permanent phase tag. Arrival time relative to the receiver oscillator is enough.
-
-The point neuron is still drawn as a point. But underneath the point is fast dynamical state.
+The point neuron can still be drawn as a point. Underneath it are several timescales:
 
 ```text
-structural connection W
-        │
-        │        receiver oscillator state theta(t)
-        │                    │
-        └────────────┬───────┘
-                     ↓
-             relative-phase gate
-                     ↓
-          W_eff(t) = G(t) ⊙ W
-                     ↓
-                 output
+FAST
+receiver oscillator / excitability state
+arrival timing
+instantaneous gate
+
+SLOWER
+edge delay / path length
+structural mass
+receiver vitality
+
+PERSISTENT
+which routes survive
 ```
 
-This is not a biological neuron simulator and not a claim that brains implement this exact equation. It is a deliberately cheap abstraction of **dynamic effective connectivity**.
+This is not a biological neuron simulator. It is a falsification-first abstraction of dynamic effective connectivity and structural plasticity.
 
 ---
 
-## Why make this?
+# The object
 
-A static point neuron exposes roughly
-
-```text
-y(t) = f(W x(t))
-```
-
-where the weights are the computation.
-
-The object tested here exposes
+A static edge is usually written as
 
 ```text
-y(t) = f(W_eff(t) x(t))
-W_eff(t) = G(relative phase, fast state) ⊙ W
+y_j(t) = W_ij x_i(t)
 ```
 
-so there are at least three distinct things:
+Gate 0 made the effective edge state-dependent:
+
+```text
+W_eff_ij(t) = G_ij(t) * W_ij
+```
+
+where `G` depends on arrival time relative to receiver phase.
+
+Gate 1 adds slow structure:
+
+```text
+M_ij       structural mass
+D_ij       propagation delay / length proxy
+G_ij(t)    fast phase gate
+
+W_eff_ij(t) = M_ij * G_ij(t) * W_ij
+```
+
+and, crucially,
+
+```text
+fast successful traffic
+        ↓
+slow structural reinforcement
+```
+
+so the instantaneous network can slowly compile itself into a persistent sparse graph.
+
+The current slogan is:
+
+> **fast routing writes slow wiring.**
+
+---
+
+# Gate 0 — relative-phase routing
+
+`experiments/gate0_relative_phase_routing.py`
+
+Two hidden sources are summed into one scalar mixture but tend to express at opposite phases of a shared oscillator. Receiver points learn different listening phases from arrival energy plus competition.
+
+Development result:
+
+| arm | mean source recovery |
+|---|---:|
+| static point | 0.6950 |
+| one global oscillation | 0.5088 |
+| random receiver phases | 0.5991 ± 0.1610 |
+| **learned receiver phases** | **0.9947 ± 0.0004** |
+| oracle phase | 0.9947 ± 0.0004 |
+| digital phase-feature attacker | **0.9960 ± 0.0006** |
+
+Destroy source phase diversity and the advantage disappears.
+
+Surviving claim:
+
+> **Receiver-specific relative phase can be a fast routing coordinate when the world contains stable timing structure. A global wiggle is not enough.**
+
+The digital feature attacker still wins slightly. Good.
+
+Full receipt: `results/GATE0.md`.
+
+---
+
+# Gate 1 — self-wiring by phase coherence
+
+`experiments/gate1_self_wiring_phase_graph.py`
+
+This gate asks the new question:
+
+> **Can a signal keep probing possible paths until repeated phase-compatible arrival makes one route grow, while incompatible routes lose mass?**
+
+Three sender points emit jittered event trains with periods `17`, `23`, and `31` steps. Six downstream points exist with receiver periods:
+
+```text
+[31, 17, 27, 23, 41, DEAD]
+```
+
+The matching targets are deliberately permuted. Every sender initially has a candidate edge to every receiver.
+
+Each edge carries:
+
+```text
+mass m_ij     slow structural commitment
+delay d_ij    stand-in for path length / conduction delay
+```
+
+Each sender has a fixed material budget:
+
+```text
+sum_j m_ij = 1
+```
+
+During development, candidate paths make exploratory length changes. A proposal survives only when delayed sender events become more compatible with the receiver's oscillatory gate. Structural mass then competes across outgoing edges.
+
+Twelve-seed held-out result:
+
+| arm | top-1 correct target | correct mass | top-edge compatibility | mass entropy |
+|---|---:|---:|---:|---:|
+| static random | 0.3333 | 0.1667 | 0.1210 | 1.0000 |
+| mass only | 0.3333 | 0.4271 | 0.2291 | 0.6931 |
+| length only | 0.3333 | 0.1667 | 0.3103 | 1.0000 |
+| **mass + length self-wiring** | **1.0000** | **0.9997** | **0.9270** | **0.0014** |
+| digital exhaustive oracle | 1.0000 | 0.9999 | 0.9272 | 0.0005 |
+| destroyed phase coherence | 0.4444 | 0.2060 | 0.0147 | 0.9751 |
+
+The non-oscillating receiver receives essentially zero final mass in the self-wiring arm.
+
+The ablation is the point:
+
+```text
+length adaptation without mass
+    can improve timing but cannot create topology
+
+mass adaptation without length
+    cannot reliably rescue an initially wrong conduction phase
+
+length + mass
+    finds a workable arrival phase and consolidates the route
+```
+
+Destroy persistent receiver phase relationships and the graph stays almost diffuse.
+
+The exhaustive digital delay search is still slightly cleaner than the developmental toy, so there is no algorithmic superiority claim.
+
+Surviving claim:
+
+> **Geometry/delay can determine whether a route is temporally viable, and a finite structural budget can turn repeated local viability into persistent sparse wiring.**
+
+Full receipt: `results/GATE1.md`.
+
+---
+
+# What the "matrix" means now
+
+At any instant we can still write a matrix, but it is no longer one thing:
+
+```text
+M           slow structural topology / mass
+W           slower learned synaptic efficacy
+G(t)        fast dynamical gate
+
+W_eff(t) = M ⊙ W ⊙ G(t)
+```
+
+The useful conceptual split is:
 
 ```text
 STRUCTURE
@@ -54,191 +188,76 @@ what can connect?
 SLOW WEIGHT
 what usually matters?
 
-FAST OSCILLATORY GATE
+FAST STATE
 what matters right now?
+
+DEVELOPMENT
+which repeatedly useful fast interactions deserve permanent structure?
 ```
 
-The immediate biological inspiration is modest: oscillatory receiver state can modulate the efficacy of afferent input according to arrival phase. The repo asks only whether that principle is computationally coherent and learnable in a toy world.
+That is the bridge between the oscillating-point experiment and the self-growing-matrix thought.
 
 ---
 
-# Gate 0 — can receiver phase route a mixed signal?
+# Why length matters
 
-`experiments/gate0_relative_phase_routing.py`
-
-Two independent hidden processes are added into **one scalar mixture**. They differ in one extra piece of structure: they tend to express their energy at opposite phases of a shared oscillator.
+If a path has propagation delay
 
 ```text
-source A ─┐             around phase 0
-          ├── scalar mixture x(t) ──► receivers
-source B ─┘             around phase pi
+tau = L / v
 ```
 
-Every receiver gets the same scalar mixture. There is no source label in the input.
-
-A receiver has phase offset `theta_j` and instantaneous gain
+then changing length changes arrival phase:
 
 ```text
-g_j(t) = ((1 + cos(phi(t) - theta_j)) / 2)^p
+Delta phi = omega * Delta L / v
 ```
 
-so its output is
+So path growth is not merely "more wire." In this abstraction it changes the temporal relation between sender and receiver.
 
-```text
-y_j(t) = g_j(t) x(t)
-```
-
-The phase offsets are learned from **arrival energy + soft lateral competition**. Energetic arrivals pull a receiver toward their phase, while competition prevents every receiver from claiming the same arrivals.
-
-This is not presented as a biologically exact learning rule. It is the smallest test of the idea that receivers can learn different temporal "listening phases".
-
-## Development result
-
-Eight seeds, held-out final 40% of each run:
-
-| arm | mean source recovery |
-|---|---:|
-| static point, duplicated mixture | 0.6950 |
-| one global oscillatory gate duplicated to both outputs | 0.5088 |
-| random receiver phases | 0.5991 ± 0.1610 |
-| **learned receiver phases** | **0.9947 ± 0.0004** |
-| oracle receiver phases | 0.9947 ± 0.0004 |
-| **digital phase-feature attacker** | **0.9960 ± 0.0006** |
-
-The learned receivers converge to offsets near `0` and `pi`, and their output duplication is only `0.0215` on average.
-
-So in this world, the fast oscillatory gate really does act like a routing coordinate.
-
-But the boring attacker still wins slightly. Give an ordinary linear model the explicit features
-
-```text
-x(t)
-x(t) cos(phi(t))
-x(t) sin(phi(t))
-```
-
-and it recovers the sources just as well or better.
-
-**That is the correct result.** Oscillation has not discovered information unavailable to a normal computer. It is one way to *instantiate* a useful time-varying basis.
+That is why Gate 1 lets edge geometry/delay adapt separately from edge mass.
 
 ---
 
-# The negative control matters more than the win
+# Current kill conditions
 
-Now put both hidden processes at the **same oscillator phase**.
+Demote the idea if:
 
-The learned system cannot separate them:
+- sparse wiring appears even when persistent phase coherence is destroyed;
+- mass competition alone does everything;
+- delay plasticity adds nothing;
+- a non-oscillating receiver is reinforced anyway;
+- the effect requires source/target labels during development;
+- ordinary sparse adaptive filtering learns the same useful graph more simply;
+- later task utility shows that synchronization merely preserves synchrony rather than useful information.
 
-```text
-learned recovery     ≈ 0.7335
-output duplication   ≈ 0.9996
-```
-
-The phase-feature attacker also falls to the same regime.
-
-So the experiment is not simply "add oscillations and separation appears."
-
-The useful claim is narrower:
-
-> **Relative phase can route information only when the world actually contains stable phase-relative structure to exploit.**
-
-No phase diversity, no phase-routing advantage.
-
-Full receipt: `results/GATE0.md`.
+The final one is now the important test.
 
 ---
 
-# What this is trying to become
+# Next
 
-The interesting object is not a complex number for its own sake and not a globally wiggling neural net.
+Gate 1 makes "phase compatibility" itself worth preserving. That is too easy.
 
-It is a **dynamical point**:
+The next attack should create **multiple phase-compatible routes**, only some of which help prediction or control.
 
-```text
-(signal_in, point_state)
-          ↓
-        interaction
-          ↓
-(signal_out, new_point_state)
-```
+Then ask:
 
-A future version can have:
+> **Can local fast coherence propose structure while slower task utility decides which coherent path actually earns mass?**
+
+That would separate
 
 ```text
-fast oscillator phase
-fast cable / branch state
-slow homeostatic state
-slow learned weights
+can communicate
 ```
 
-and therefore a temporary effective operator
+from
 
 ```text
-W_eff(t) = W_slow + state-dependent gated suboperators
+is worth wiring.
 ```
 
-The graph may still draw one dot. The dot is no longer stateless.
-
----
-
-# Next gates
-
-## Gate 1 — drifting world
-
-Slowly move the preferred arrival phases after training.
-
-Question:
-
-> can receiver oscillators track the drift online, or is "learned synchronization" just a batch clustering trick?
-
-Compare against an ordinary adaptive phase-feature filter.
-
-## Gate 2 — remove the supplied global phase
-
-Gate 0 hands the model `phi(t)`.
-
-Replace that convenience with local oscillators / PLL-like state that must synchronize from the event stream itself.
-
-If it cannot recover a useful clock, the story stops there.
-
-## Gate 3 — signal changes the receiver
-
-Let an arriving event perturb receiver phase/state:
-
-```text
-arrival
-  ↓
-current gate decides efficacy
-  ↓
-arrival shifts receiver state
-  ↓
-next arrival sees a different point
-```
-
-Now the signal is simultaneously cargo, operand, and write operation.
-
-## Gate 4 — combine with the dynamical neuron
-
-Use branch/cable state as additional fast coordinates and let oscillatory gating select which state/suboperator is effective at a given moment.
-
-The attacker remains an ordinary matched state-space model / adaptive filter / MLP.
-
----
-
-# Kill conditions
-
-This project should be demoted immediately if:
-
-- random oscillation performs as well as learned phase;
-- the effect survives when source phase structure is destroyed;
-- a static equal-budget model gets the same result without using time;
-- online phase tracking is unstable;
-- supplying the explicit clock is doing all the work and local oscillators cannot recover it;
-- ordinary adaptive filtering reproduces the useful behavior more cleanly.
-
-In that case the oscillating point is an implementation metaphor, not an algorithmic advance.
-
-That is fine.
+Only after that is it worth returning to local oscillator synchronization, drifting clocks, dendritic state, or a GPU-hostile sparse implementation.
 
 ---
 
@@ -247,6 +266,7 @@ That is fine.
 ```bash
 python -m pip install -r requirements.txt
 python experiments/gate0_relative_phase_routing.py
+python experiments/gate1_self_wiring_phase_graph.py
 python -m unittest discover -s tests -v
 ```
 
@@ -256,4 +276,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **The wiring graph describes potential connectivity. A dynamical receiver state can turn that into a different effective graph from moment to moment. Relative phase is one mathematically cheap coordinate for that fast routing.**
+> **A dynamical graph can have fast effective connectivity and slow structural connectivity. In the toy tested here, repeated phase-compatible traffic can tune propagation delay and consolidate scarce edge mass into a sparse persistent graph. Fast routing can compile into slow wiring.**
