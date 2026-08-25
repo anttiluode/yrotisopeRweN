@@ -1,0 +1,48 @@
+{
+  "full_loop": {
+    "hold1_a_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold1_b_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold2_a_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold2_b_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold1_a_mean": {"mean": 0.9068236660663574, "std": 1.5794240934104395e-06},
+    "hold2_a_mean": {"mean": -0.9068229831126206, "std": 1.2935804522563725e-06}
+  },
+  "cut_return": {
+    "hold1_a_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold1_b_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold2_a_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold2_b_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold1_a_mean": {"mean": 2.7118482509208298e-06, "std": 8.685606606261313e-06},
+    "hold2_a_mean": {"mean": -4.177796986942574e-06, "std": 7.180318406542202e-06}
+  },
+  "scrambled_return_timing": {
+    "hold1_a_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold1_b_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold2_a_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold2_b_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold1_a_mean": {"mean": 0.9061877743532277, "std": 0.00030299679881187714},
+    "hold2_a_mean": {"mean": 0.9011994352598207, "std": 0.005435402459130054}
+  },
+  "low_loop_gain": {
+    "hold1_a_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold1_b_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold2_a_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold2_b_accuracy": {"mean": 0.0, "std": 0.0},
+    "hold1_a_mean": {"mean": 1.004910358139422e-05, "std": 9.450696057998362e-06},
+    "hold2_a_mean": {"mean": -1.416853480124798e-05, "std": 7.589583097172818e-06}
+  },
+  "instantaneous_compartments": {
+    "hold1_a_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold1_b_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold2_a_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold2_b_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold1_a_mean": {"mean": 0.9068235334430338, "std": 1.452460733878906e-06},
+    "hold2_a_mean": {"mean": -0.9068237245387986, "std": 1.2299144050341826e-06}
+  },
+  "scalar_recurrent_attacker": {
+    "hold1_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold2_accuracy": {"mean": 1.0, "std": 0.0},
+    "hold1_mean": {"mean": 0.9574899398005767, "std": 0.00010002695930330649},
+    "hold2_mean": {"mean": -0.9575273708207264, "std": 6.789081300596752e-05}
+  }
+}
