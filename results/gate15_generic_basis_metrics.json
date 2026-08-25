@@ -1,0 +1,65 @@
+{
+  "stable_generic_basis": {
+    "late_hold_accuracy": {"mean": 1.0, "std": 0.0},
+    "a_effective_feature_count": {"mean": 4.8294078971669085, "std": 0.5865538334446199},
+    "b_effective_feature_count": {"mean": 3.053879240997006, "std": 1.1592411856462306},
+    "a_max_feature_mass": {"mean": 0.4027396788891519, "std": 0.0835305040803181},
+    "b_max_feature_mass": {"mean": 0.5991563764142511, "std": 0.21030593245428492},
+    "a_max_axis_loading": {"mean": 0.563181987553611, "std": 0.02368426958920502},
+    "b_max_axis_loading": {"mean": 0.5620831508859717, "std": 0.028320446767737806}
+  },
+  "scrambled_feature_addresses": {
+    "late_hold_accuracy": {"mean": 0.0028268551236749115, "std": 0.0028415401841731017},
+    "a_effective_feature_count": {"mean": 6.102613082274506, "std": 2.302736806315482},
+    "b_effective_feature_count": {"mean": 4.98926479055221, "std": 1.0419598217281543},
+    "a_max_feature_mass": {"mean": 0.4824888814478662, "std": 0.19561823702716644},
+    "b_max_feature_mass": {"mean": 0.5674202856080348, "std": 0.14636183560878432},
+    "a_max_axis_loading": {"mean": 0.563181987553611, "std": 0.02368426958920502},
+    "b_max_axis_loading": {"mean": 0.5620831508859717, "std": 0.028320446767737806}
+  },
+  "shuffled_eligibility": {
+    "late_hold_accuracy": {"mean": 0.0, "std": 0.0},
+    "a_effective_feature_count": {"mean": 23.919689424175733, "std": 0.029750702858815977},
+    "b_effective_feature_count": {"mean": 23.935879122819802, "std": 0.0169154098271659},
+    "a_max_feature_mass": {"mean": 0.049015082787383805, "std": 0.0019079356693155823},
+    "b_max_feature_mass": {"mean": 0.0479778744984064, "std": 0.0008322740187393412},
+    "a_max_axis_loading": {"mean": 0.563181987553611, "std": 0.02368426958920502},
+    "b_max_axis_loading": {"mean": 0.5620831508859717, "std": 0.028320446767737806}
+  },
+  "no_learning": {
+    "late_hold_accuracy": {"mean": 0.0, "std": 0.0},
+    "a_effective_feature_count": {"mean": 23.999999999999417, "std": 0.0},
+    "b_effective_feature_count": {"mean": 23.999999999999417, "std": 0.0},
+    "a_max_feature_mass": {"mean": 0.041666666666666664, "std": 0.0},
+    "b_max_feature_mass": {"mean": 0.041666666666666664, "std": 0.0},
+    "a_max_axis_loading": {"mean": 0.563181987553611, "std": 0.02368426958920502},
+    "b_max_axis_loading": {"mean": 0.5620831508859717, "std": 0.028320446767737806}
+  },
+  "cut_return_after_growth": {
+    "late_hold_accuracy": {"mean": 0.03521790341578327, "std": 0.0028317586054584934},
+    "a_effective_feature_count": {"mean": 5.6653715255572195, "std": 0.3018514240610611},
+    "b_effective_feature_count": {"mean": 3.9061240093121548, "std": 1.4572964455075004},
+    "a_max_feature_mass": {"mean": 0.37969850883071365, "std": 0.04259782256293786},
+    "b_max_feature_mass": {"mean": 0.5265806680014355, "std": 0.16793085877793898},
+    "a_max_axis_loading": {"mean": 0.563181987553611, "std": 0.02368426958920502},
+    "b_max_axis_loading": {"mean": 0.5620831508859717, "std": 0.028320446767737806}
+  },
+  "linear_generic_basis": {
+    "late_hold_accuracy": {"mean": 1.0, "std": 0.0},
+    "a_effective_feature_count": {"mean": 3.415609856048402, "std": 0.5377302353440139},
+    "b_effective_feature_count": {"mean": 1.8376951009430416, "std": 0.4813016055004445},
+    "a_max_feature_mass": {"mean": 0.44613427271401523, "std": 0.11194717478824685},
+    "b_max_feature_mass": {"mean": 0.7938267906958831, "std": 0.15764822896805353},
+    "a_max_axis_loading": {"mean": 0.563181987553611, "std": 0.02368426958920502},
+    "b_max_axis_loading": {"mean": 0.5620831508859717, "std": 0.028320446767737806}
+  },
+  "six_feature_basis": {
+    "late_hold_accuracy": {"mean": 1.0, "std": 0.0},
+    "a_effective_feature_count": {"mean": 2.7864930955036775, "std": 0.7453986730922256},
+    "b_effective_feature_count": {"mean": 1.6682309179490307, "std": 0.895954196990438},
+    "a_max_feature_mass": {"mean": 0.6255216603927147, "std": 0.13261846562461543},
+    "b_max_feature_mass": {"mean": 0.8358072436102977, "std": 0.22587677814610746},
+    "a_max_axis_loading": {"mean": 0.5242178986205984, "std": 0.013303433203676879},
+    "b_max_axis_loading": {"mean": 0.5401857217396809, "std": 0.011809932162753665}
+  }
+}
