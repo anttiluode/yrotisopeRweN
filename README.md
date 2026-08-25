@@ -229,7 +229,9 @@ Demote the idea if:
 - a non-oscillating receiver is reinforced anyway;
 - the effect requires source/target labels during development;
 - ordinary sparse adaptive filtering learns the same useful graph more simply;
-- task utility shows that synchronization merely preserves synchrony rather than useful information.
+- later task utility shows that synchronization merely preserves synchrony rather than useful information.
+
+The final one is now the important test.
 
 ---
 
@@ -270,6 +272,53 @@ Full receipt: `results/GATE2.md`. Raw metrics: `results/gate2_metrics.json`.
 
 ---
 
+# Gate 3 — Oja under the oscillating point
+
+The "point matrix" idea now has a concrete two-dimensional version. Lift local arrival energy into an in-phase/quadrature subspace:
+
+```text
+u(t) = sqrt(e(t)) [cos(phi(t)), sin(phi(t))]
+```
+
+A slow vector `w=[cos(theta), sin(theta)]` is then a preferred phase **axis**. Oja's rule
+
+```text
+y = w^T u
+Delta w = eta * y * (u - y w)
+```
+
+rotates that axis toward persistent phase-conditioned energy while preventing ordinary Hebbian positive feedback from blowing the weight norm up.
+
+This is the precise relation to the old "keep the pipes from growing too large" intuition: **the normalising term is what turns growth into a choice of direction.** A finite structural-mass budget has the same resource-competition flavour, but it is not literally Oja's update.
+
+Twelve-seed result:
+
+| arm / quantity | result |
+|---|---:|
+| plain Hebb | hits `1e6` norm guard in 12/12 runs |
+| Oja final norm | `1.000059 ± 0.000027` |
+| Oja phase-axis alignment | `0.999929 ± 0.000078` |
+| linear opposite outputs | recovery `0.7017`, duplication `1.0000` |
+| **Oja axis + nonlinear phase windows** | **recovery `0.9944 ± 0.0006`**, duplication `0.0162` |
+| same-phase kill world | recovery `0.3979` |
+
+The limitation is as useful as the win. Oja/PCA learns an **axis**, so `theta` and `theta+pi` are the same covariance direction. Two linear outputs at opposite ends are merely negatives of one another. A nonnegative local gate is what makes the two ends computationally distinct.
+
+So the current decomposition is:
+
+```text
+FAST PHASE       where is the arrival now?
+OJA              which direction has persisted?
+NONLINEARITY     which side / conjunction is effective?
+UTILITY          did it help?
+MASS / GEOMETRY  should the relation persist physically?
+```
+
+Full receipt: `results/GATE3.md`. Raw metrics: `results/gate3_oja_metrics.json`.
+
+
+---
+
 # Next
 
 Gate 2 is still a one-shot developmental world. Once the right path hardens, the environment stays put.
@@ -289,6 +338,7 @@ python -m pip install -r requirements.txt
 python experiments/gate0_relative_phase_routing.py
 python experiments/gate1_self_wiring_phase_graph.py
 python experiments/gate2_useful_coherence.py
+python experiments/gate3_oja_phase_axis.py
 python -m unittest discover -s tests -v
 ```
 
@@ -298,4 +348,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **A dynamical graph can separate fast effective connectivity from slow structural connectivity. Phase-compatible timing can discover routes that are physically viable; task utility can decide which viable route earns scarce structural mass. Fast routing can compile into slow wiring, but coherence says only "can" — utility says "keep."**
+> **A dynamical point can carry a fast relational coordinate, a slowly learned selection axis, and still slower structural commitment. Oja shows how normalised growth can become directional selection; phase says what fits now, utility says what helped, and mass/geometry says what should persist.**
