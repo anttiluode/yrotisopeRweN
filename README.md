@@ -1,415 +1,392 @@
-# yrotisopeRweN — the oscillating point that starts to wire itself
+# yrotisopeRweN — the matrix under the point
 
-`NewRepository` backwards, because apparently Tuesday kept going backwards until the matrix started growing.
+`NewRepository` backwards, because the interesting road turned out not to be another ordinary forward architecture.
 
-This repo tests a small computational abstraction:
+**Read `MAINLINE.md` before extending this repo.**
 
-> **The wiring graph is potential connectivity. Fast receiver state determines what communicates now. Repeatedly successful timing can slowly change which connections physically persist.**
+The repo now contains two legitimate branches. One is a well-paved differentiation branch (`Oja -> Sanger -> AMUSE`). Keep it. It is not the current destination.
 
-The point neuron can still be drawn as a point. Underneath it are several timescales:
+The main hypothesis is:
+
+> **The sender broadcasts. The receiver decides whether an arrival belongs here; local dynamics decide what it becomes when combined with what is already here; consequence decides whether that temporary relation deserves persistent capacity.**
+
+In verbs:
 
 ```text
-FAST
-receiver oscillator / excitability state
-arrival timing
-instantaneous gate
-
-SLOWER
-edge delay / path length
-structural mass
-receiver vitality
-
-PERSISTENT
-which routes survive
+BROADCAST
+    -> RECEIVER-RELATIVE FIT
+    -> COMPOSE
+    -> CONTEXT
+    -> CONSEQUENCE
+    -> ALLOCATE
+    -> CONSOLIDATE
 ```
 
-This is not a biological neuron simulator. It is a falsification-first abstraction of dynamic effective connectivity and structural plasticity.
+This is a falsification-first computational abstraction, not a biological neuron simulator.
 
 ---
 
 # The object
 
-A static edge is usually written as
+The point can still be drawn as:
 
 ```text
-y_j(t) = W_ij x_i(t)
+●
 ```
 
-Gate 0 made the effective edge state-dependent:
+but the abstraction underneath it now contains different timescales:
 
 ```text
-W_eff_ij(t) = G_ij(t) * W_ij
+FAST
+receiver/excitability state
+arrival-relative gating
+recent context
+local nonlinear conjunctions
+
+SLOW
+learned efficacy / utility
+eligibility traces
+bounded allocation
+
+PERSISTENT
+structural mass / topology / geometry
 ```
 
-where `G` depends on arrival time relative to receiver phase.
-
-Gate 1 adds slow structure:
+At one instant a network can still be written as a matrix, but that matrix is not one object:
 
 ```text
-M_ij       structural mass
-D_ij       propagation delay / length proxy
-G_ij(t)    fast phase gate
-
-W_eff_ij(t) = M_ij * G_ij(t) * W_ij
-```
-
-and, crucially,
-
-```text
-fast successful traffic
-        ↓
-slow structural reinforcement
-```
-
-so the instantaneous network can slowly compile itself into a persistent sparse graph.
-
-The current slogan is:
-
-> **fast routing writes slow wiring.**
-
----
-
-# Gate 0 — relative-phase routing
-
-`experiments/gate0_relative_phase_routing.py`
-
-Two hidden sources are summed into one scalar mixture but tend to express at opposite phases of a shared oscillator. Receiver points learn different listening phases from arrival energy plus competition.
-
-Development result:
-
-| arm | mean source recovery |
-|---|---:|
-| static point | 0.6950 |
-| one global oscillation | 0.5088 |
-| random receiver phases | 0.5991 ± 0.1610 |
-| **learned receiver phases** | **0.9947 ± 0.0004** |
-| oracle phase | 0.9947 ± 0.0004 |
-| digital phase-feature attacker | **0.9960 ± 0.0006** |
-
-Destroy source phase diversity and the advantage disappears.
-
-Surviving claim:
-
-> **Receiver-specific relative phase can be a fast routing coordinate when the world contains stable timing structure. A global wiggle is not enough.**
-
-The digital feature attacker still wins slightly. Good.
-
-Full receipt: `results/GATE0.md`.
-
----
-
-# Gate 1 — self-wiring by phase coherence
-
-`experiments/gate1_self_wiring_phase_graph.py`
-
-This gate asks the new question:
-
-> **Can a signal keep probing possible paths until repeated phase-compatible arrival makes one route grow, while incompatible routes lose mass?**
-
-Three sender points emit jittered event trains with periods `17`, `23`, and `31` steps. Six downstream points exist with receiver periods:
-
-```text
-[31, 17, 27, 23, 41, DEAD]
-```
-
-The matching targets are deliberately permuted. Every sender initially has a candidate edge to every receiver.
-
-Each edge carries:
-
-```text
-mass m_ij     slow structural commitment
-delay d_ij    stand-in for path length / conduction delay
-```
-
-Each sender has a fixed material budget:
-
-```text
-sum_j m_ij = 1
-```
-
-During development, candidate paths make exploratory length changes. A proposal survives only when delayed sender events become more compatible with the receiver's oscillatory gate. Structural mass then competes across outgoing edges.
-
-Twelve-seed held-out result:
-
-| arm | top-1 correct target | correct mass | top-edge compatibility | mass entropy |
-|---|---:|---:|---:|---:|
-| static random | 0.3333 | 0.1667 | 0.1210 | 1.0000 |
-| mass only | 0.3333 | 0.4271 | 0.2291 | 0.6931 |
-| length only | 0.3333 | 0.1667 | 0.3103 | 1.0000 |
-| **mass + length self-wiring** | **1.0000** | **0.9997** | **0.9270** | **0.0014** |
-| digital exhaustive oracle | 1.0000 | 0.9999 | 0.9272 | 0.0005 |
-| destroyed phase coherence | 0.4444 | 0.2060 | 0.0147 | 0.9751 |
-
-The non-oscillating receiver receives essentially zero final mass in the self-wiring arm.
-
-The ablation is the point:
-
-```text
-length adaptation without mass
-    can improve timing but cannot create topology
-
-mass adaptation without length
-    cannot reliably rescue an initially wrong conduction phase
-
-length + mass
-    finds a workable arrival phase and consolidates the route
-```
-
-Destroy persistent receiver phase relationships and the graph stays almost diffuse.
-
-The exhaustive digital delay search is still slightly cleaner than the developmental toy, so there is no algorithmic superiority claim.
-
-Surviving claim:
-
-> **Geometry/delay can determine whether a route is temporally viable, and a finite structural budget can turn repeated local viability into persistent sparse wiring.**
-
-Full receipt: `results/GATE1.md`.
-
----
-
-# What the "matrix" means now
-
-At any instant we can still write a matrix, but it is no longer one thing:
-
-```text
-M           slow structural topology / mass
-W           slower learned synaptic efficacy
-G(t)        fast dynamical gate
+M           persistent structural capacity
+W           slower learned efficacy
+G(t)        fast receiver-dependent gating
 
 W_eff(t) = M ⊙ W ⊙ G(t)
 ```
 
-The useful conceptual split is:
+The core question is no longer merely "what are the weights?"
 
-```text
-STRUCTURE
-what can connect?
+It is:
 
-SLOW WEIGHT
-what usually matters?
-
-FAST STATE
-what matters right now?
-
-DEVELOPMENT
-which repeatedly useful fast interactions deserve permanent structure?
-```
-
-That is the bridge between the oscillating-point experiment and the self-growing-matrix thought.
+> **How can the same fixed slow structure compute differently because the receiver is in a different transient state, and how can useful transient relations later earn persistent resources?**
 
 ---
 
-# Why length matters
+# Main-hypothesis gates
 
-If a path has propagation delay
+## Gate 0 — receiver-relative fit
 
-```text
-tau = L / v
-```
+`experiments/gate0_relative_phase_routing.py`
 
-then changing length changes arrival phase:
+Two hidden processes are summed into one scalar mixture but tend to arrive at different phases of a supplied oscillator.
 
-```text
-Delta phi = omega * Delta L / v
-```
-
-So path growth is not merely "more wire." In this abstraction it changes the temporal relation between sender and receiver.
-
-That is why Gate 1 lets edge geometry/delay adapt separately from edge mass.
-
----
-
-# Current kill conditions
-
-Demote the idea if:
-
-- sparse wiring appears even when persistent phase coherence is destroyed;
-- mass competition alone does everything;
-- delay plasticity adds nothing;
-- a non-oscillating receiver is reinforced anyway;
-- the effect requires source/target labels during development;
-- ordinary sparse adaptive filtering learns the same useful graph more simply;
-- later task utility shows that synchronization merely preserves synchrony rather than useful information.
-
-The final one is now the important test.
-
----
-
-# Gate 2 — coherence says can; utility says keep
-
-Gate 1 still had a cheat: the connection that synchronized best was, by construction, the connection we wanted.
-
-Gate 2 removes that convenience. Each sender now has **two receiver twins with identical oscillatory timing**. Phase coherence cannot distinguish them. The twins differ only in downstream consequence: one helps a 3-D prediction/control target and the other pushes the same output in the wrong direction.
-
-The graph gets no correct-edge label. Delay growth still uses phase compatibility only. Structural mass additionally receives an error-modulated eligibility signal telling it whether more of an edge would reduce the current task residual.
-
-Twelve-seed held-out result:
-
-| arm | useful mass | target correlation |
-|---|---:|---:|
-| phase only | 0.4877 | 0.0158 |
-| utility only | 0.3720 | 0.2436 |
-| **phase + utility** | **0.9992** | **0.9061** |
-| destroyed utility | 0.4846 | 0.0023 |
-| digital oracle | 1.0000 | 0.9248 |
-
-The full graph chooses the useful twin for all three senders on all 12 seeds. Phase-only finds the compatible pair but remains almost exactly 50/50 between useful and harmful twins. Destroying the utility signal leaves the same 50/50 ambiguity. Utility-only cannot reliably discover routes because timing remains wrong.
-
-So the new decomposition is:
-
-```text
-PHASE / DELAY
-can this route communicate?
-
-TASK UTILITY
-is that communication useful?
-
-MASS
-is it worth preserving this route?
-```
-
-Full receipt: `results/GATE2.md`. Raw metrics: `results/gate2_metrics.json`.
-
----
-
-# Gate 3 — Oja under the oscillating point
-
-The "point matrix" idea now has a concrete two-dimensional version. Lift local arrival energy into an in-phase/quadrature subspace:
-
-```text
-u(t) = sqrt(e(t)) [cos(phi(t)), sin(phi(t))]
-```
-
-A slow vector `w=[cos(theta), sin(theta)]` is then a preferred phase **axis**. Oja's rule
-
-```text
-y = w^T u
-Delta w = eta * y * (u - y w)
-```
-
-rotates that axis toward persistent phase-conditioned energy while preventing ordinary Hebbian positive feedback from blowing the weight norm up.
-
-This is the precise relation to the old "keep the pipes from growing too large" intuition: **the normalising term is what turns growth into a choice of direction.** A finite structural-mass budget has the same resource-competition flavour, but it is not literally Oja's update.
-
-Twelve-seed result:
-
-| arm / quantity | result |
-|---|---:|
-| plain Hebb | hits `1e6` norm guard in 12/12 runs |
-| Oja final norm | `1.000059 ± 0.000027` |
-| Oja phase-axis alignment | `0.999929 ± 0.000078` |
-| linear opposite outputs | recovery `0.7017`, duplication `1.0000` |
-| **Oja axis + nonlinear phase windows** | **recovery `0.9944 ± 0.0006`**, duplication `0.0162` |
-| same-phase kill world | recovery `0.3979` |
-
-The limitation is as useful as the win. Oja/PCA learns an **axis**, so `theta` and `theta+pi` are the same covariance direction. Two linear outputs at opposite ends are merely negatives of one another. A nonnegative local gate is what makes the two ends computationally distinct.
-
-So the current decomposition is:
-
-```text
-FAST PHASE       where is the arrival now?
-OJA              which direction has persisted?
-NONLINEARITY     which side / conjunction is effective?
-UTILITY          did it help?
-MASS / GEOMETRY  should the relation persist physically?
-```
-
-Full receipt: `results/GATE3.md`. Raw metrics: `results/gate3_oja_metrics.json`.
-
----
-
-# Gate 4 — population differentiation
-
-`experiments/gate4_population_differentiation.py`
-
-Gate 3 left one precise wall: several independent Oja points should all chase the same strongest covariance direction. Gate 4 removes phase learning, mass, geometry, utility and task loss and asks only whether a population gains a new verb when the points interact.
-
-Four points see the same 4-D mixture containing four known covariance modes.
-
-Twelve-seed held-out result:
-
-| arm | weight duplication | source recovery | strong distinct claims |
-|---|---:|---:|---:|
-| independent Oja points | **1.0000** | 0.2735 | 1.00 / 4 |
-| **Sanger / GHA population** | **0.0368** | **0.9782** | **3.92 / 4** |
-| explicit PCA attacker | — | **0.9990** | — |
-
-So the missing population operation was real: independent normalized growth gives copies; Sanger-style between-point deflation makes the points divide covariance structure.
-
-But orthogonality is not automatically information. In an exactly rank-1 kill world, the Sanger outputs still have effective information rank `1.0000`.
-
-And a second boundary is more important. Give the world four equal-variance sources whose zero-lag covariance is spherical but whose lag-1 autocorrelations differ strongly (`spread = 1.1410`). Sanger produces almost nonduplicated weights (`0.0200`) yet recovers the actual sources only `0.7440`; explicit PCA gets `0.7643`.
-
-That is not a failure of the gate. It marks its jurisdiction:
-
-> **Normalisation makes one point selective; competition/deflation makes a population diverse. Neither operation identifies causes whose distinguishing information exists only in history.**
-
-Full receipt: `results/GATE4.md`. Raw metrics: `results/gate4_population_metrics.json`.
-
----
-
-# Gate 5 — one lag gets one chance
-
-`experiments/gate5_amuse_history.py`
-
-Gate 4 finally supplied a reason to import temporal BSS rather than merely noticing that delays sound neuron-ish. The world now has equal zero-lag covariance but different temporal laws.
-
-The observed covariance is identity to machine precision (`2.71e-15` Frobenius error), so there is no privileged PCA basis. Yet the whitened lag-1 covariance has strongly distinct eigenvalues (`spread = 1.1411`).
-
-Twelve-seed held-out result:
+Development result:
 
 | arm | source recovery |
 |---|---:|
-| PCA | `0.7643 ± 0.0726` |
-| Sanger / GHA | `0.7440 ± 0.0545` |
-| **AMUSE, tau=1** | **`0.999995 ± 0.000005`** |
+| static point | `0.6950` |
+| one global oscillation | `0.5088` |
+| random receiver phases | `0.5991 ± 0.1610` |
+| learned receiver phases | **`0.9947 ± 0.0004`** |
+| digital phase-feature attacker | **`0.9960 ± 0.0006`** |
 
-Destroy temporal ordering while preserving the same zero-lag sample cloud and AMUSE falls to `0.7872 ± 0.0616`.
+Destroy phase diversity and the advantage disappears.
 
-Give all four hidden sources the same AR(1) memory law and it falls to `0.7940 ± 0.0437`.
+Surviving claim:
 
-So one delayed matrix has now earned a precise job:
+> **Fast receiver-relative state can decide which temporally structured arrivals are effective. A global wiggle is not enough.**
 
-> **A delayed relation can contain source identity that the instantaneous covariance does not.**
-
-This still does not mean one lag is generally enough. This world was deliberately made one-lag identifiable.
-
-Full receipt: `results/GATE5.md`. Raw metrics: `results/gate5_amuse_metrics.json`.
+Receipt: `results/GATE0.md`.
 
 ---
 
-# Next
+## Gate 1 — timing can write structure
 
-Three branches are now deliberately separate.
+`experiments/gate1_self_wiring_phase_graph.py`
 
-## Immediate Gate-5 branch — make one lag fail before adding SOBI
+Candidate paths have structural mass and propagation delay. Delay changes whether sender events arrive during a receiver-compatible window; finite mass makes viable routes compete.
 
-Do **not** add several lags merely because SOBI is sitting in the paper pile.
+Twelve-seed result:
 
-Construct a world where at least two sources share the same lag-1 statistic but differ at later lags.
+| arm | top-1 target | correct mass |
+|---|---:|---:|
+| static random | `0.3333` | `0.1667` |
+| mass only | `0.3333` | `0.4271` |
+| length only | `0.3333` | `0.1667` |
+| mass + length | **`1.0000`** | **`0.9997`** |
+| destroyed coherence | `0.4444` | `0.2060` |
 
-Then ask:
+Surviving claim:
+
+> **Geometry/delay can determine temporal viability, and a finite structural budget can turn repeated viability into sparse wiring.**
+
+Receipt: `results/GATE1.md`.
+
+This was an early structural result. Later gates deliberately remove growth again so we can identify what structure should actually preserve.
+
+---
+
+## Gate 2 — coherence says CAN; consequence says KEEP
+
+`experiments/gate2_useful_coherence.py`
+
+Each sender gets two timing-identical receiver twins with opposite downstream consequences. Phase cannot distinguish them.
+
+| arm | useful mass | target correlation |
+|---|---:|---:|
+| phase only | `0.4877` | `0.0158` |
+| utility only | `0.3720` | `0.2436` |
+| phase + utility | **`0.9992`** | **`0.9061`** |
+| destroyed utility | `0.4846` | `0.0023` |
+
+Surviving decomposition:
 
 ```text
-AMUSE(tau=1)
-should fail
+FIT / TIMING
+can this relation occur?
 
-AMUSE(best single tau)
-may depend precariously on lag choice
+CONSEQUENCE
+was it useful?
 
-multi-lag joint diagonalization
-only then gets a chance
+STRUCTURE
+should it persist?
 ```
 
-If several lags genuinely recover or stabilize what one lag cannot, SOBI earns its place. If one well-chosen lag solves the world just as cleanly, leave SOBI out.
+Receipt: `results/GATE2.md`.
 
-## Unfinished Gate-2 branch — stability/plasticity
+Gate 2 also left an unfinished stability/plasticity problem: once useful structure hardens, what happens if usefulness reverses?
 
-Gate 2 is still a one-shot developmental world. A separate later attack should reverse which coherent twin is useful after consolidation and ask whether obsolete mass retracts and an alternative regrows without either freezing forever or dissolving everything.
+---
 
-## Later recombination
+## Gate 3 — bounded growth becomes selection
 
-Only after temporal differentiation has its own clean mechanism should it be rejoined with phase gating, nonlinear conjunction, utility, and mass/geometry. Otherwise the repo stops telling us which verb did the work.
+`experiments/gate3_oja_phase_axis.py`
+
+Oja was introduced as a precise example of a more primitive principle:
+
+```text
+plain correlated growth -> runaway magnitude
+normalised growth       -> finite directional allocation
+```
+
+Plain Hebb hits the `1e6` guard in 12/12 runs. Oja settles at unit norm and learns the dominant phase axis.
+
+But Oja learns an axis, not two opposite identities. A nonlinear/nonnegative local gate is required to make the two ends computationally distinct.
+
+Surviving principle:
+
+> **Bounded growth forces correlated experience to become selective allocation instead of unlimited amplification.**
+
+Receipt: `results/GATE3.md`.
+
+---
+
+## Gate 6 — COMPOSE
+
+`experiments/gate6_receiver_state_composition.py`
+
+Gates 4/5 are described below as a side branch. Gate 6 returns to the main hypothesis and freezes all learning and growth.
+
+Two broadcasts carry:
+
+```text
+A = [a0, a1]
+B = [b0, b1]
+```
+
+The same fixed nonlinear conjunction bank can compute:
+
+```text
+state 0:  a0*b0 + a1*b1
+state pi: a0*b1 + a1*b0
+```
+
+by changing only fast receiver state.
+
+| arm | NMSE |
+|---|---:|
+| receiver-state composition | **`0.0000`** |
+| ordinary scalar mode switch | **`0.0000`** |
+| stateless bilinear readout | `0.4978` |
+| state but no nonlinear conjunction | `1.0024` |
+| shuffled/frozen state | ~`0.99` |
+
+So phase earned no special expressive status. The scalar switch ties exactly.
+
+Surviving claim:
+
+> **Fixed slow structure plus changed fast receiver state can produce a different nonlinear computation, reversibly and without relearning.**
+
+Receipt: `results/GATE6.md`.
+
+---
+
+## Gate 7 — CONTEXT
+
+`experiments/gate7_context_memory.py`
+
+Gate 6 was handed its fast state at composition time. Gate 7 moves that information into the past:
+
+```text
+context happens
+    -> receiver changes
+context disappears
+    -> unrelated gap events
+identical later A,B arrive
+    -> leftover receiver state changes composition
+```
+
+No mode input exists at composition time and no weights change.
+
+Twelve-seed memory curve under distractors:
+
+| gap | circular state NMSE | scalar state NMSE | context decode |
+|---:|---:|---:|---:|
+| 0 | `0.0000` | `0.0000` | `1.0000` |
+| 8 | **`0.0098`** | **`0.0058`** | `0.9985` |
+| 16 | **`0.1242`** | **`0.1111`** | `0.9244` |
+| 32 | `0.4913` | `0.4649` | `0.6694` |
+| 64 | `0.7195` | `0.6960` | `0.5140` |
+
+Reset receiver state before the later broadcast and the context-dependent contrast disappears (`contrast NMSE ~1`). Shuffle the old context and the useful relation disappears too.
+
+Again the one-scalar recurrent attacker ties/slightly wins.
+
+Surviving claim:
+
+> **Past input can disappear while a transient receiver state remains changed, causing the same later broadcast to be interpreted/composed differently.**
+
+Not "phase memory." Receiver-carried context is the primitive.
+
+Receipt: `results/GATE7.md`.
+
+---
+
+## Gate 8 — CONSEQUENCE
+
+`experiments/gate8_delayed_consequence.py`
+
+Gate 8 keeps structural growth off.
+
+Earlier context leaves receiver state. Later broadcasts create several state-gated nonlinear conjunctions. Only some help a downstream target. The conjunction activity disappears before scalar error arrives.
+
+The only bridge back is a decaying local eligibility trace:
+
+```text
+conjunction phi_j
+      -> eligibility e_j
+      ... delay ...
+scalar consequence/error
+      -> Δw_j ∝ error * e_j
+```
+
+At consequence delay 8:
+
+| arm | held-out NMSE |
+|---|---:|
+| delayed eligibility | **`0.000059`** |
+| no eligibility | `1.0001` |
+| shuffled consequence | `1.0096` |
+| shuffled eligibility | `1.0928` |
+| context/state alone, no conjunctions | `1.0005` |
+| batch transient-feature attacker | **`0.000059`** |
+| explicit old-context buffer | ~`0.000000` |
+
+The learned slow efficacy pattern aligns with the hidden useful conjunction pattern at `0.9999999`.
+
+Surviving claim:
+
+> **A delayed consequence can selectively change slow efficacy only when the earlier transient conjunction left a trace that still identifies what happened.**
+
+Receipt: `results/GATE8.md`.
+
+---
+
+# Differentiation side branch — keep the receipts, do not follow automatically
+
+## Gate 4 — population differentiation
+
+Independent Oja points all chase the strongest covariance direction. Sanger/GHA adds across-point competition and makes them divide covariance structure.
+
+| arm | weight duplication | source recovery |
+|---|---:|---:|
+| independent Oja | `1.0000` | `0.2735` |
+| Sanger/GHA | **`0.0368`** | **`0.9782`** |
+| explicit PCA | — | **`0.9990`** |
+
+A rank-1 kill remains information-rank 1. In a spherical zero-lag world with temporal differences, Sanger/PCA cannot identify the causes.
+
+Receipt: `results/GATE4.md`.
+
+## Gate 5 — one delayed covariance
+
+In the matched zero-lag world, AMUSE with one lag recovers the temporally distinct causes almost perfectly:
+
+| arm | source recovery |
+|---|---:|
+| PCA | `0.7643` |
+| Sanger | `0.7440` |
+| AMUSE tau=1 | **`0.999995`** |
+| shuffled time | `0.7872` |
+| same memory law | `0.7940` |
+
+Surviving claim:
+
+> **History can contain source identity that the instantaneous covariance does not.**
+
+Receipt: `results/GATE5.md`.
+
+This is valid machinery. It is currently a side branch. Do not add SOBI to the main hypothesis unless a future problem specifically requires multi-lag differentiation.
+
+---
+
+# What is next — ALLOCATE / CONSOLIDATE
+
+Gates 6–8 finally give the old growth story a cleaner object to preserve:
+
+```text
+earlier context
+    -> transient receiver state
+    -> later nonlinear conjunction
+    -> eligibility
+    -> delayed consequence
+    -> evidence that THIS relation mattered
+```
+
+The next gate should introduce **finite capacity**, but still avoid geometry at first.
+
+Ask:
+
+> **Can repeatedly useful conjunctions claim persistent capacity while unused/harmful conjunctions lose it?**
+
+The resource conflict must be real: preserving one relation must make another less available.
+
+Critical attacks:
+
+```text
+unlimited capacity
+    -> if everything grows, allocation was never tested
+
+remove consequence
+    -> co-activation alone should not decide persistence
+
+shuffle eligibility
+    -> delayed utility should consolidate the wrong thing or nothing
+
+ordinary sparse/regularized fixed-capacity model
+    -> boring attacker
+
+reverse usefulness after consolidation
+    -> stability/plasticity kill
+```
+
+The reversal is load-bearing. A useful system must avoid both:
+
+```text
+freeze forever
+and
+dissolve everything
+```
+
+Only after finite allocation survives should structural mass and then geometry/path length be reintroduced.
 
 ---
 
@@ -417,12 +394,21 @@ Only after temporal differentiation has its own clean mechanism should it be rej
 
 ```bash
 python -m pip install -r requirements.txt
+
 python experiments/gate0_relative_phase_routing.py
 python experiments/gate1_self_wiring_phase_graph.py
 python experiments/gate2_useful_coherence.py
 python experiments/gate3_oja_phase_axis.py
+
+# differentiation side branch
 python experiments/gate4_population_differentiation.py
 python experiments/gate5_amuse_history.py
+
+# main hypothesis continuation
+python experiments/gate6_receiver_state_composition.py
+python experiments/gate7_context_memory.py
+python experiments/gate8_delayed_consequence.py
+
 python -m unittest discover -s tests -v
 ```
 
@@ -432,4 +418,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **A dynamical point can carry a fast relational coordinate and a slowly learned selection axis; a population needs an across-point interaction to divide covariance structure, and delayed covariance can expose temporal identity that zero-lag structure cannot. Phase says what fits now, Oja says which direction persists, competition says who gets which direction, history can say which process it is, utility says what helped, and mass/geometry says what should persist physically.**
+> **The sender broadcasts. Fast receiver state decides what fits and which nonlinear relations are available; past context can persist in that state; delayed consequence can select useful transient conjunctions through eligibility. The next unanswered question is whether finite capacity can turn that repeated usefulness into persistent allocation without destroying the ability to change later.**
