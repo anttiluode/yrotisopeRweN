@@ -26,9 +26,9 @@ BROADCAST
     -> CONSOLIDATE / REALLOCATE
 ```
 
-For the first time, each verb now has at least one deliberately tiny gate behind it.
+For the first time, each verb has at least one deliberately tiny gate behind it.
 
-That does **not** mean the architecture is established. It means the next job is no longer to append a verb.
+Gate 10 does **not** add another verb. It starts removing scaffolding from the allocation/consolidation end of the chain.
 
 ---
 
@@ -54,7 +54,7 @@ Receipt: `results/GATE1.md`.
 
 Timing-identical receiver twins can be behaviorally opposite. Coherence alone remains ~50/50; consequence selects the useful route.
 
-This gate also exposed the stability/plasticity problem that Gate 9 finally revisits.
+This gate also exposed the stability/plasticity problem later attacked by Gates 9 and 10.
 
 Receipt: `results/GATE2.md`.
 
@@ -175,12 +175,7 @@ unlimited positive growth
     -> phase-2 NMSE 1.0063
 ```
 
-And the boring signed projected-gradient attacker is much cleaner:
-
-```text
-phase-1 NMSE 0.000053
-phase-2 NMSE 0.000059
-```
+And the boring signed projected-gradient attacker is much cleaner.
 
 So Gate 9 is not an optimizer claim.
 
@@ -189,6 +184,68 @@ Its surviving architectural point is:
 > **When local structure mainly receives positive growth evidence, conservation can provide retraction by competition, while a small exploratory reserve preserves the ability to discover changed utility after consolidation.**
 
 Receipt: `results/GATE9.md`.
+
+## Gate 10 — GROWING MATRIX: remove the supplied rivals
+
+Gate 9 still told each structural variable who its rival was.
+
+Gate 10 replaces those pairwise budgets with a `6 x 6` dense field of possible relations:
+
+```text
+Q_ij = A_i * B_j
+```
+
+All 36 cells share **one** conserved capacity pool:
+
+```text
+sum_ij M_ij = 1
+```
+
+No rows, columns, pairs, or rival families are supplied.
+
+Only four cells matter in phase 1. Across 12 seeds:
+
+```text
+phase-1 useful matrix mass     0.96795
+phase-1 held-out NMSE          0.001158
+```
+
+Then usefulness moves to four completely disjoint cells. The tiny distributed reserve keeps every potential relation sampleable:
+
+```text
+new-pattern mass > .90         after 17.08 +/- 0.28 epochs
+final new-pattern mass         0.96771
+phase-2 held-out NMSE          0.001171
+```
+
+Kills:
+
+```text
+no consequence
+    -> NMSE 4.6094
+
+shuffled eligibility
+    -> NMSE 0.8819
+
+zero reserve + hard prune
+    -> new-pattern mass 0.0000
+    -> phase-2 NMSE 1.9928
+
+unlimited positive growth
+    -> phase-2 NMSE 1.0310
+```
+
+The signed global-gradient attacker solves both phases essentially exactly.
+
+So the result is architectural, not algorithmic:
+
+> **A dense field of potential relations can grow into a sparse effective matrix when positive local utility evidence acts under one conserved capacity budget. A tiny distributed reserve lets the sparse matrix dissolve and regrow elsewhere when utility changes.**
+
+This is currently the cleanest computational analogue in the repo of **growing structure**.
+
+It is not yet growing topology or dendritic geometry: the candidate relation field itself is still handed in.
+
+Receipt: `results/GATE10.md`.
 
 ---
 
@@ -231,63 +288,64 @@ later consequence marks some relations useful
     ↓
 positive growth evidence acts on finite capacity
     ↓
-competition consolidates useful relations
+a diffuse potential matrix becomes sparse
     ↓
-exploratory reserve allows later reallocation
+exploratory reserve allows the sparse matrix to regrow elsewhere
 ```
 
 That is the current object.
 
-It is still extremely hand-designed.
+The word **growth** now means something more precise than adding biological-looking branches:
+
+```text
+potential relation field
+    -> consequence-modulated claims on finite capacity
+    -> sparse effective operator
+    -> reversible reallocation when the world changes
+```
+
+This is still heavily scaffolded.
 
 ---
 
-# What comes next — ATTACK THE CHAIN, DO NOT ADD A VERB
+# What comes next — ATTACK THE GROWING MATRIX, DO NOT ADD A VERB
 
-A fresh chat should **not** respond to this repo by adding another learning rule or biological mechanism.
+A fresh chat should **not** respond by adding another named learning rule or another biological mechanism.
 
-Remove one hand-designed convenience and see whether the chain survives.
+Gate 10 removed the hand-written rival pairs. The biggest remaining convenience is now the supplied candidate relation field itself.
 
-Best candidates:
+Best next attacks:
 
-### 1. Remove the explicit pairwise capacity families
+### 1. Remove the known conjunction matrix
 
-Gate 9 currently knows that `q00` competes with `q11` and `q01` competes with `q10`.
+Gate 10 is handed every exact product `A_i * B_j`.
 
-Give all candidate conjunctions one shared capacity pool or let competition topology emerge.
+Replace that with a small generic nonlinear local field: random projections plus a simple nonlinearity, or another deliberately boring overcomplete basis.
 
-Ask whether useful relations still allocate without being told who their rival is.
+Ask whether consequence + finite capacity can still grow a useful sparse effective matrix without knowing the right conjunction coordinates in advance.
 
-### 2. Remove the supplied binary context code
+### 2. Remove isolated trials
 
-Gate 7 receives a clean `C0/C1` event.
-
-Replace it with an ordinary preceding sensory pattern whose relevance is not explicitly labeled.
-
-Ask whether a small receiver state can still carry the useful distinction.
-
-### 3. Remove the known conjunction bank
-
-Gate 6 is handed the four products `q00,q01,q10,q11` through fixed square-law subunits.
-
-Give the receiver a small generic nonlinear local basis and ask whether useful relational features emerge/select under consequence.
-
-### 4. Remove isolated trials
-
-Run a continuous stream:
+Keep the product field for one more gate, but run the chain continuously:
 
 ```text
 context-ish events
 broadcasts
 distractors
+overlapping eligibility
 consequences
+world reversal
 ```
 
-with overlapping eligibility and no clean reset between examples.
+with no clean reset between examples.
 
-This is probably the most brutal attack on the current story.
+This attacks the credit-assignment scaffolding rather than the feature scaffold.
 
-### 5. Keep the boring attacker
+### 3. Remove the supplied binary context code
+
+Replace `C0/C1` with preceding sensory patterns whose relevance is not explicitly labeled.
+
+### 4. Keep the boring attacker
 
 A standard recurrent/gated network with ordinary signed gradient is allowed to tie or win.
 
@@ -303,12 +361,13 @@ Do not yet claim:
 - phase is important in general;
 - morphology is required;
 - structural mass is literal biological material;
+- the candidate matrix can grow new coordinates rather than only reallocating fixed ones;
 - concepts have emerged;
 - associative sequence completion has been shown;
 - this is a new learning algorithm;
 - the chain scales.
 
-Geometry/path length should return only after the less hand-designed chain has something worth physically parameterizing.
+Geometry/path length should return only after the less hand-designed growing matrix has something worth physically parameterizing.
 
 The route/music sequence-completion intuition belongs later:
 
@@ -324,4 +383,4 @@ Gate 7 is not yet that.
 
 # Compass sentence
 
-> **Broadcast -> receiver-relative fit -> compose -> context -> consequence -> finite allocation -> reversible consolidation. The next job is to remove scaffolding and see whether the chain survives.**
+> **Broadcast -> receiver-relative fit -> compose -> context -> consequence -> finite allocation -> growing sparse matrix -> reversible regrowth. The next job is to remove the supplied relation coordinates or trial structure and see whether the matrix still grows usefully.**
