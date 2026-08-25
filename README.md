@@ -316,18 +316,59 @@ MASS / GEOMETRY  should the relation persist physically?
 
 Full receipt: `results/GATE3.md`. Raw metrics: `results/gate3_oja_metrics.json`.
 
+---
+
+# Gate 4 — population differentiation
+
+`experiments/gate4_population_differentiation.py`
+
+Gate 3 left one precise wall: several independent Oja points should all chase the same strongest covariance direction. Gate 4 removes phase learning, mass, geometry, utility and task loss and asks only whether a population gains a new verb when the points interact.
+
+Four points see the same 4-D mixture containing four known covariance modes.
+
+Twelve-seed held-out result:
+
+| arm | weight duplication | source recovery | strong distinct claims |
+|---|---:|---:|---:|
+| independent Oja points | **1.0000** | 0.2735 | 1.00 / 4 |
+| **Sanger / GHA population** | **0.0368** | **0.9782** | **3.92 / 4** |
+| explicit PCA attacker | — | **0.9990** | — |
+
+So the missing population operation was real: independent normalized growth gives copies; Sanger-style between-point deflation makes the points divide covariance structure.
+
+But orthogonality is not automatically information. In an exactly rank-1 kill world, the Sanger outputs still have effective information rank `1.0000`.
+
+And a second boundary is more important. Give the world four equal-variance sources whose zero-lag covariance is spherical but whose lag-1 autocorrelations differ strongly (`spread = 1.1410`). Sanger produces almost nonduplicated weights (`0.0200`) yet recovers the actual sources only `0.7440`; explicit PCA gets `0.7643`.
+
+That is not a failure of the gate. It marks its jurisdiction:
+
+> **Normalisation makes one point selective; competition/deflation makes a population diverse. Neither operation identifies causes whose distinguishing information exists only in history.**
+
+Full receipt: `results/GATE4.md`. Raw metrics: `results/gate4_population_metrics.json`.
 
 ---
 
 # Next
 
-Gate 2 is still a one-shot developmental world. Once the right path hardens, the environment stays put.
+Two branches are now deliberately separate.
 
-The next attack should **reverse which coherent twin is useful after consolidation**.
+## Immediate Gate-4 branch — history-identifiability
 
-Ask whether the graph can retract obsolete structure and regrow an alternative without either freezing forever or dissolving its useful wiring. That is a stability-plasticity test, and it makes "exploratory mass" an actual computational quantity rather than decoration.
+Keep mass, geometry, utility and structural growth frozen.
 
-Only after that should we return to local oscillator synchronization, no supplied clock, dendritic state, or GPU-hostile sparse execution.
+Construct a world with matched zero-lag covariance but distinct lagged structure and ask the next smallest question:
+
+> **Can one delayed statistic identify the temporal modes that Oja/Sanger cannot?**
+
+That is where AMUSE may earn its place. SOBI only earns its place if one lag is insufficient. Do not install either merely because Tuesday found the papers.
+
+The attacker remains explicit batch linear algebra.
+
+## Unfinished Gate-2 branch — stability/plasticity
+
+Gate 2 is still a one-shot developmental world. A separate later attack should reverse which coherent twin is useful after consolidation and ask whether obsolete mass retracts and an alternative regrows without either freezing forever or dissolving everything.
+
+Do not combine that structural problem with the temporal-identification gate.
 
 ---
 
@@ -339,6 +380,7 @@ python experiments/gate0_relative_phase_routing.py
 python experiments/gate1_self_wiring_phase_graph.py
 python experiments/gate2_useful_coherence.py
 python experiments/gate3_oja_phase_axis.py
+python experiments/gate4_population_differentiation.py
 python -m unittest discover -s tests -v
 ```
 
@@ -348,4 +390,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **A dynamical point can carry a fast relational coordinate, a slowly learned selection axis, and still slower structural commitment. Oja shows how normalised growth can become directional selection; phase says what fits now, utility says what helped, and mass/geometry says what should persist.**
+> **A dynamical point can carry a fast relational coordinate and a slowly learned selection axis; a population needs an across-point interaction to divide representational structure. Phase says what fits now, Oja says which direction persists, competition says who gets which direction, utility says what helped, and mass/geometry says what should persist physically. Temporal identity remains a separate operation that zero-lag covariance cannot supply.**
