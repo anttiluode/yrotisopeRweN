@@ -348,27 +348,68 @@ Full receipt: `results/GATE4.md`. Raw metrics: `results/gate4_population_metrics
 
 ---
 
+# Gate 5 — one lag gets one chance
+
+`experiments/gate5_amuse_history.py`
+
+Gate 4 finally supplied a reason to import temporal BSS rather than merely noticing that delays sound neuron-ish. The world now has equal zero-lag covariance but different temporal laws.
+
+The observed covariance is identity to machine precision (`2.71e-15` Frobenius error), so there is no privileged PCA basis. Yet the whitened lag-1 covariance has strongly distinct eigenvalues (`spread = 1.1411`).
+
+Twelve-seed held-out result:
+
+| arm | source recovery |
+|---|---:|
+| PCA | `0.7643 ± 0.0726` |
+| Sanger / GHA | `0.7440 ± 0.0545` |
+| **AMUSE, tau=1** | **`0.999995 ± 0.000005`** |
+
+Destroy temporal ordering while preserving the same zero-lag sample cloud and AMUSE falls to `0.7872 ± 0.0616`.
+
+Give all four hidden sources the same AR(1) memory law and it falls to `0.7940 ± 0.0437`.
+
+So one delayed matrix has now earned a precise job:
+
+> **A delayed relation can contain source identity that the instantaneous covariance does not.**
+
+This still does not mean one lag is generally enough. This world was deliberately made one-lag identifiable.
+
+Full receipt: `results/GATE5.md`. Raw metrics: `results/gate5_amuse_metrics.json`.
+
+---
+
 # Next
 
-Two branches are now deliberately separate.
+Three branches are now deliberately separate.
 
-## Immediate Gate-4 branch — history-identifiability
+## Immediate Gate-5 branch — make one lag fail before adding SOBI
 
-Keep mass, geometry, utility and structural growth frozen.
+Do **not** add several lags merely because SOBI is sitting in the paper pile.
 
-Construct a world with matched zero-lag covariance but distinct lagged structure and ask the next smallest question:
+Construct a world where at least two sources share the same lag-1 statistic but differ at later lags.
 
-> **Can one delayed statistic identify the temporal modes that Oja/Sanger cannot?**
+Then ask:
 
-That is where AMUSE may earn its place. SOBI only earns its place if one lag is insufficient. Do not install either merely because Tuesday found the papers.
+```text
+AMUSE(tau=1)
+should fail
 
-The attacker remains explicit batch linear algebra.
+AMUSE(best single tau)
+may depend precariously on lag choice
+
+multi-lag joint diagonalization
+only then gets a chance
+```
+
+If several lags genuinely recover or stabilize what one lag cannot, SOBI earns its place. If one well-chosen lag solves the world just as cleanly, leave SOBI out.
 
 ## Unfinished Gate-2 branch — stability/plasticity
 
 Gate 2 is still a one-shot developmental world. A separate later attack should reverse which coherent twin is useful after consolidation and ask whether obsolete mass retracts and an alternative regrows without either freezing forever or dissolving everything.
 
-Do not combine that structural problem with the temporal-identification gate.
+## Later recombination
+
+Only after temporal differentiation has its own clean mechanism should it be rejoined with phase gating, nonlinear conjunction, utility, and mass/geometry. Otherwise the repo stops telling us which verb did the work.
 
 ---
 
@@ -381,6 +422,7 @@ python experiments/gate1_self_wiring_phase_graph.py
 python experiments/gate2_useful_coherence.py
 python experiments/gate3_oja_phase_axis.py
 python experiments/gate4_population_differentiation.py
+python experiments/gate5_amuse_history.py
 python -m unittest discover -s tests -v
 ```
 
@@ -390,4 +432,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **A dynamical point can carry a fast relational coordinate and a slowly learned selection axis; a population needs an across-point interaction to divide representational structure. Phase says what fits now, Oja says which direction persists, competition says who gets which direction, utility says what helped, and mass/geometry says what should persist physically. Temporal identity remains a separate operation that zero-lag covariance cannot supply.**
+> **A dynamical point can carry a fast relational coordinate and a slowly learned selection axis; a population needs an across-point interaction to divide covariance structure, and delayed covariance can expose temporal identity that zero-lag structure cannot. Phase says what fits now, Oja says which direction persists, competition says who gets which direction, history can say which process it is, utility says what helped, and mass/geometry says what should persist physically.**
