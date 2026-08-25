@@ -4,7 +4,7 @@
 
 **Read `MAINLINE.md` before extending this repo.**
 
-This repository now contains two branches:
+This repository contains two branches:
 
 ```text
 DIFFERENTIATION SIDE BRANCH
@@ -17,7 +17,8 @@ broadcast
  -> context
  -> consequence
  -> finite allocation
- -> reversible consolidation
+ -> growing sparse matrix
+ -> reversible regrowth
 ```
 
 The differentiation branch is valid science. It is not currently the destination.
@@ -49,11 +50,13 @@ local nonlinear conjunctions
 
 SLOW
 eligibility traces
-learned efficacy / utility
-capacity allocation
+learned utility / efficacy
+capacity claims
 
 PERSISTENT
-consolidated capacity / topology / geometry
+effective sparse matrix
+consolidated capacity
+eventually perhaps topology / geometry
 ```
 
 At one instant:
@@ -96,7 +99,7 @@ correct mass                 0.9997
 
 Receipt: `results/GATE1.md`.
 
-This was an early structural result. Later gates remove growth again to determine what structure should preserve.
+This was an early structural result. Later gates removed growth again to determine what structure should preserve.
 
 ## Gate 2 — coherence says CAN; consequence says KEEP
 
@@ -127,7 +130,7 @@ Receipt: `results/GATE3.md`.
 
 Freeze all learning and growth.
 
-The same two broadcasts and fixed nonlinear conjunction bank can compute two different relations when only fast receiver state changes:
+The same two broadcasts and fixed nonlinear conjunction bank compute two different relations when only fast receiver state changes:
 
 ```text
 state 0:  a0*b0 + a1*b1
@@ -195,32 +198,21 @@ The ordinary batch attacker ties once the transient conjunction features exist.
 
 Receipt: `results/GATE8.md`.
 
-## Gate 9 — ALLOCATE / CONSOLIDATE / REALLOCATE
+## Gate 9 — finite allocation / reversible consolidation
 
-Now allow only **positive local growth evidence** from consequence-modulated eligibility.
+Allow only **positive local growth evidence** from consequence-modulated eligibility.
 
-Each context family has a conserved two-way capacity budget. Growing one claim must shrink its rival. A small `2%` exploratory reserve survives consolidation.
-
-Phase 1:
+Gate 9 still supplies two-way rival families. Within each family, growing one claim must shrink its rival. A small `2%` reserve survives consolidation.
 
 ```text
-useful pattern     [1, 0, 1, 0]
-mean mass          [.9795, .0204, .9796, .0205]
-NMSE               0.000959
-```
+phase 1 mass      [.9795, .0204, .9796, .0205]
+phase-1 NMSE      0.000959
 
-Then usefulness reverses:
+usefulness reverses
 
-```text
-new pattern        [0, 1, 0, 1]
-```
-
-The old exploratory reserve now becomes useful. Across 12 seeds:
-
-```text
-new useful mass > .90 after 13 epochs
-final mean mass   [.0205, .9794, .0206, .9795]
+phase 2 mass      [.0205, .9794, .0206, .9795]
 phase-2 NMSE      0.000978
+switch >.90       13 epochs
 ```
 
 Two opposite kills:
@@ -235,20 +227,94 @@ unlimited positive growth
     -> phase-2 NMSE 1.0063
 ```
 
-The boring signed projected-gradient attacker wins cleanly:
-
-```text
-phase-1 NMSE 0.000053
-phase-2 NMSE 0.000059
-```
-
-So Gate 9 is not an optimizer claim.
-
-Its architectural result is narrower:
+The signed projected-gradient attacker wins cleanly.
 
 > **If local structure mainly receives positive growth evidence, conservation can provide retraction by competition, while a small exploratory reserve preserves plasticity after consolidation.**
 
 Receipt: `results/GATE9.md`.
+
+## Gate 10 — GROWING MATRIX
+
+Gate 9's biggest remaining cheat was that it told each structural variable who its rival was.
+
+Gate 10 removes those pairwise families.
+
+Two six-dimensional broadcasts produce a dense potential relation field:
+
+```text
+Q_ij = A_i * B_j
+
+6 x 6 = 36 candidate cells
+```
+
+All 36 cells share **one** conserved material/capacity pool:
+
+```text
+sum_ij M_ij = 1
+M_ij >= 0.001 exploratory reserve
+```
+
+No row, column, pair, or rival topology is supplied.
+
+Only four cells are useful in phase 1:
+
+```text
+phase-1 useful mass      0.96795
+phase-1 held-out NMSE    0.001158
+```
+
+Then usefulness jumps to four completely disjoint cells:
+
+```text
+new-pattern mass > .90   after 17.08 +/- 0.28 epochs
+final new-pattern mass   0.96771
+phase-2 held-out NMSE    0.001171
+```
+
+A seed-0 matrix literally changes from approximately:
+
+```text
+.242 .001 .001 .001 .001 .001
+.001 .001 .001 .242 .001 .001
+.001 .001 .001 .001 .001 .001
+.001 .001 .001 .001 .001 .001
+.001 .001 .242 .001 .001 .001
+.001 .001 .001 .001 .001 .242
+```
+
+to:
+
+```text
+.001 .001 .001 .001 .242 .001
+.001 .001 .001 .001 .001 .001
+.001 .242 .001 .001 .001 .001
+.001 .001 .001 .001 .001 .242
+.001 .001 .001 .001 .001 .001
+.242 .001 .001 .001 .001 .001
+```
+
+Kills:
+
+```text
+no consequence              NMSE 4.6094
+shuffled eligibility        NMSE 0.8819
+zero reserve + hard prune   new mass 0.0000, NMSE 1.9928
+unlimited positive growth   NMSE 1.0310
+```
+
+The signed global-gradient attacker solves both phases essentially exactly.
+
+So this is not an optimizer claim.
+
+The surviving result is:
+
+> **A dense field of potential relations can grow into a sparse effective matrix when positive local utility evidence acts under one conserved global capacity budget. A tiny distributed reserve lets that matrix dissolve and regrow elsewhere when utility changes.**
+
+This is the repo's current computational analogue of **growing structure**.
+
+It is not yet literal growing topology: the candidate relation coordinates are still supplied as all products `A_i * B_j`.
+
+Receipt: `results/GATE10.md`.
 
 ---
 
@@ -278,7 +344,7 @@ shuffle time        recovery 0.7872
 same memory law     recovery 0.7940
 ```
 
-History can contain identity that the instantaneous covariance does not.
+History can contain identity that instantaneous covariance does not.
 
 Receipt: `results/GATE5.md`.
 
@@ -286,9 +352,9 @@ Do not add SOBI to the main hypothesis unless some later wall genuinely needs se
 
 ---
 
-# Current chain
+# Current object
 
-The repo now has a deliberately tiny implementation of every verb in the hypothesis:
+The main line now reads:
 
 ```text
 same broadcast
@@ -305,41 +371,54 @@ later consequence marks some useful
     ↓
 positive growth acts on finite capacity
     ↓
-competition consolidates useful relations
+a diffuse potential matrix becomes sparse
     ↓
-exploratory reserve allows later reallocation
+exploratory reserve allows the sparse matrix to dissolve and regrow elsewhere
 ```
 
-This chain is still heavily scaffolded.
+This is closer to the old "growing neuron" intuition without requiring us to simulate dendrites.
 
-That is now the problem.
+The abstraction is:
+
+```text
+many possible local computations
+        ↓
+finite structural budget
+        ↓
+useful traffic claims persistent capacity
+        ↓
+unused capacity withers toward a reserve
+        ↓
+changed utility moves structural investment
+```
+
+Whether that persistent capacity later deserves a physical geometry is a separate question.
 
 ---
 
-# What is next — remove scaffolding, do not add another verb
+# What is next — remove more scaffolding, do not add another verb
 
-The next experiment should attack the **whole chained hypothesis** by removing one hand-designed convenience.
+Gate 10 removed the supplied rival pairs.
 
-Best candidates:
+The largest remaining cheat is now the **known conjunction field** itself.
+
+Best next attacks:
 
 ```text
-1. remove the explicit pairwise capacity families
-   -> one shared capacity pool / emergent competition
+1. replace exact A_i*B_j products with a generic nonlinear local field
+   -> ask whether finite consequence-driven growth still discovers useful cells
 
-2. remove the supplied binary context code
-   -> preceding sensory patterns instead of C0/C1
+2. keep the product field but remove isolated trials
+   -> continuous stream with context, broadcasts, distractors,
+      overlapping eligibility, consequences, and world reversal
 
-3. remove the known conjunction bank
-   -> small generic nonlinear local basis
-
-4. remove isolated trials
-   -> continuous stream with overlapping context, broadcasts,
-      distractors, eligibility, and consequences
+3. remove the clean binary context event
+   -> ordinary preceding sensory patterns instead of C0/C1
 ```
 
 The standard recurrent/gated/signed-gradient attacker stays in the room and is allowed to win.
 
-Only if a less hand-designed chained system survives should geometry/path length return as a possible physical parameterization of persistent allocation.
+Geometry/path length should return only after the less hand-designed growing matrix has something worth physically parameterizing.
 
 Do not yet claim concepts, associative sequence completion, biological implementation, or a new optimizer.
 
@@ -364,6 +443,7 @@ python experiments/gate6_receiver_state_composition.py
 python experiments/gate7_context_memory.py
 python experiments/gate8_delayed_consequence.py
 python experiments/gate9_capacity_reversal.py
+python experiments/gate10_growing_matrix.py
 
 python -m unittest discover -s tests -v
 ```
@@ -374,4 +454,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **The sender broadcasts. Receiver state decides what fits and which nonlinear relations are available; past context can persist in that state; delayed consequence can select useful transient conjunctions through eligibility; finite conserved capacity can turn positive evidence into persistent but reversible allocation. The next job is to remove scaffolding and see whether that chain survives.**
+> **The sender broadcasts. Receiver state decides what fits and which nonlinear relations are available; past context can persist in that state; delayed consequence can select useful transient relations through eligibility; positive growth under finite conserved capacity can turn a dense potential relation field into a sparse effective matrix, and exploratory reserve lets that matrix regrow when utility changes.**
