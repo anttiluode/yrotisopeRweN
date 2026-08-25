@@ -1,0 +1,17 @@
+{
+  "n_seeds": 12,
+  "amuse_source_recovery_mean": 0.9999949739338008,
+  "amuse_source_recovery_std": 4.595540740352802e-06,
+  "sanger_source_recovery_mean": 0.7440206466719088,
+  "sanger_source_recovery_std": 0.054504148777725435,
+  "pca_source_recovery_mean": 0.7643095407348408,
+  "pca_source_recovery_std": 0.07259202741483087,
+  "shuffled_amuse_source_recovery_mean": 0.7872224666312104,
+  "shuffled_amuse_source_recovery_std": 0.061634521531015056,
+  "same_memory_amuse_source_recovery_mean": 0.793970077460421,
+  "same_memory_amuse_source_recovery_std": 0.043705165871793746,
+  "lag_eigenvalue_spread_mean": 1.141058349906605,
+  "lag_eigenvalue_spread_std": 0.00022105671583513086,
+  "zero_lag_identity_error_mean": 2.711629744995463e-15,
+  "zero_lag_identity_error_std": 4.689096600182049e-16
+}
