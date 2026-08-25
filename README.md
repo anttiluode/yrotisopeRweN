@@ -15,11 +15,12 @@ broadcast
  -> receiver-carried context
  -> delayed consequence
  -> finite allocation
- -> growing sparse matrix
+ -> growing sparse structure
  -> continuous internal dynamics
  -> recurrent traffic
  -> grow the recurrent loop
  -> discover useful returning traffic
+ -> select it in generic stable coordinates
 ```
 
 A differentiation side branch remains:
@@ -50,13 +51,15 @@ M       persistent structural allocation
 
 and output can enter other continuously running points and later return.
 
-So state can live in more than one place:
+State can therefore live:
 
 ```text
 inside a point
 between points in recurrent traffic
 in slow structural investment
 ```
+
+The latest correction is that structural investment no longer needs semantically named internal axes. It can live in a fixed generic mixed coordinate system as long as those coordinates remain stable over time.
 
 ---
 
@@ -68,45 +71,26 @@ in slow structural investment
 | 1 | Can timing/geometry write persistent structure? | delay + finite mass can turn temporal viability into sparse routing |
 | 2 | Is coherence itself purpose? | no: coherence says CAN, consequence says KEEP |
 | 3 | What does bounded growth buy? | a bound turns amplification into allocation |
-| 6 | Can fixed slow structure compute different relations? | yes, if fast state selects nonlinear conjunctions; scalar switch ties phase |
+| 6 | Can fixed slow structure compute different relations? | yes; scalar switch ties phase, so phase is only a coordinate |
 | 7 | Can vanished context change later identical input? | yes through transient receiver state |
 | 8 | Can delayed consequence credit vanished conjunctions? | yes if eligibility still addresses them |
 | 9 | Can positive-only growth retract obsolete structure? | conserved capacity supplies retraction; reserve preserves plasticity |
-| 10 | Can a whole matrix grow without supplied rivals? | yes: one global budget grows and reallocates a sparse matrix |
+| 10 | Can a whole matrix grow without supplied rivals? | yes: one global budget grows and reallocates sparse structure |
 | 11 | Does the cell survive without trial resets? | yes: computation, eligibility and structure coexist while output is emitted |
 | 12 | Can state live in literal recurrent traffic? | yes: A<->B holds a vanished cue; cut return kills it |
-| 13 | Can diffuse matrix capacity grow a useful loop? | yes: recurrence grows only when persistence is useful |
-| 14 | Can useful return traffic be discovered without a named peer channel? | yes if the incoming channel identity is stable |
+| 13 | Can diffuse capacity grow a useful loop? | yes: recurrence grows only when persistence is useful |
+| 14 | Can useful return traffic be discovered without a named peer channel? | yes if incoming address is stable |
+| 15 | Can recurrence grow without hand-designed internal coordinates? | yes in a fixed dense random basis; stable internal address is the requirement |
 
-Full receipts are in `results/GATE0.md` through `results/GATE14.md`.
+Full receipts are in `results/GATE0.md` through `results/GATE15.md`.
 
 ---
 
-# Gates 11–14: from continuous cell to grown recurrence
-
-## Gate 11 — continuous cell
-
-Remove trial resets. Matrix cells keep local state, eligibility keeps delayed credit, and structural mass keeps long-term investment while output continues.
-
-```text
-Z(t) computes
-E(t) assigns delayed credit
-M remembers structural investment
-```
-
-Output is a boundary, not an episode terminator.
-
-Receipt: `results/GATE11.md`.
+# Gates 12–15: from recurrent traffic to coordinate-agnostic growth
 
 ## Gate 12 — recurrent traffic
 
-Freeze structure and let two continuously running cells broadcast into each other.
-
-```text
-brief cue -> A -> B -> A -> B -> ...
-```
-
-The cue disappears but the loop keeps its sign. A later opposite cue flips the state.
+Freeze structure. A brief cue enters A, then disappears while A and B continue broadcasting into each other.
 
 ```text
 full loop hold/overwrite      1.0000
@@ -115,104 +99,106 @@ scrambled return timing       old state persists; overwrite fails
 low loop gain                 state collapses
 ```
 
-Make every local compartment instantaneous and the loop still works. For this toy, state can live in recurrence itself.
-
-A one-scalar recurrent unit solves the same task perfectly.
+Instantaneous local compartments still work, so state can live in network recurrence itself.
 
 Receipt: `results/GATE12.md`.
 
 ## Gate 13 — grow the loop
 
-Start both cells with diffuse `6 x 6` structural mass.
+Start both points with diffuse structural capacity.
 
-When the cue's sign must survive between brief presentations:
+When persistence is useful:
 
 ```text
 late cue-free accuracy        1.0000
 A direct-cue mass             0.5508
 A B->A return mass            0.4152
 B A->B forwarding mass        0.9650
-closed-loop mass              0.4152
 ```
 
-No learning or shuffled eligibility gives zero late memory.
-
-In the same cue stream with no persistence requirement:
-
-```text
-A direct-cue mass             0.9231
-A return mass                 0.0020
-closed-loop mass              0.0020
-```
-
-So feedback availability alone does not force recurrent structure. Persistence utility does.
+When persistence is not useful, A spends almost all capacity on direct cue and the loop remains open.
 
 Receipt: `results/GATE13.md`.
 
-## Gate 14 — anonymous return channels
+## Gate 14 — anonymous return
 
-Now remove the label "peer return."
+Remove the label `peer return`. One of several stable anonymous input streams happens to carry the current peer output.
 
-Each cell receives four generic incoming return streams in a random fixed permutation per seed:
+Stable addresses let the loop grow. Randomly reshuffling input-channel identity every timestep destroys it.
+
+Surviving statement:
+
+> **feedback does not need a semantic label, but useful returning traffic needs a persistent external address.**
+
+Receipt: `results/GATE14.md`.
+
+## Gate 15 — generic internal basis
+
+Now remove the direct channel-to-structural-coordinate mapping.
+
+Each point gets a fixed dense random projection of all six incoming streams. Every internal feature mixes every raw channel.
+
+Default 24-feature field, three seeds:
 
 ```text
-one current peer broadcast
-three unrelated low-amplitude streams
+late cue-free memory              1.0000
+A effective occupied features    4.83
+B effective occupied features    3.05
+max raw-channel loading          ~0.56
 ```
 
-The growth rule is not told which is which.
-
-Stable identities:
+Scramble the **internal feature addresses** every timestep while leaving the same feature set available:
 
 ```text
-late memory                   1.0000
-A useful return mass          0.4928
-B useful return mass          0.9650
-A best irrelevant return      0.00103
-closed-loop mass              0.4928
-```
-
-Randomly reshuffle channel identity every timestep:
-
-```text
-late memory                   0.0501
-A useful-return mass          0.00161
-closed-loop mass              0.00161
-A direct-cue mass             0.9630
+late memory                       0.00283
 ```
 
 Shuffle eligibility:
 
 ```text
-late memory                   0.0000
-closed-loop mass              0.0266
+late memory                       0.0000
 ```
 
-No-memory control:
+No learning:
 
 ```text
-A direct-cue mass             0.8650
-A useful-return mass          0.00223
-closed-loop mass              0.00223
+late memory                       0.0000
 ```
 
-So the matrix does not need a semantic symbol called "feedback," but it does need a **stable structural address** that repeatedly carries useful returning traffic.
+Grow the generic field and then cut the recurrent returns while freezing learning:
 
-Cut the useful return after growth and memory degrades while continued learning reallocates A back toward direct cue.
+```text
+late memory                       0.0352
+```
 
-Receipt: `results/GATE14.md`.
+Two important negative results:
+
+```text
+linear random basis               1.0000
+only six mixed features           1.0000
+```
+
+So Gate 15 does **not** earn nonlinear random features or overcompleteness.
+
+It earns something smaller:
+
+> **semantic internal coordinates are unnecessary; persistent internal addressability is necessary.**
+
+For the linear case, the system is simply learning an effective direction expressed as finite positive mass over fixed random directions. A conventional recurrent network with signed trainable weights is still the simpler engineering solution.
+
+Receipt: `results/GATE15.md`.
 
 ---
 
 # Biology papers
 
-Aizenbud et al. (PNAS 2026) motivated treating dendritic complexity as extended, compartmentalized, nonlinear integration rather than simply counting branches.
+Aizenbud et al. (PNAS 2026) motivated treating dendritic complexity as extended, compartmentalized integration rather than simply counting branches.
 
 Leterrier's AIS review (J. Neurosci. 2018) motivated separating continuously evolving internal computation from an output/broadcast boundary.
 
 They do **not** validate our equations, matrix representation, eligibility rule, mass conservation, recurrent-learning mechanism, or any hippocampal interpretation.
 
-The recurrent gates here are generic computational tests.
+The recurrent gates are generic computational tests.
 
 ---
 
@@ -228,29 +214,35 @@ Do not continue to SOBI unless a future wall genuinely needs several lags.
 
 # Next
 
-Gate 14 removed the semantic label from the useful recurrent channel, but every incoming process still maps directly to a simple known coordinate.
+Gate 15 has removed the hand-designed local coordinate basis far enough that the earlier roadmap now permits a scale change.
 
-That coordinate basis is now the largest scaffold.
-
-Next attack:
+Next clean attack:
 
 ```text
-stable incoming processes
+4-8 continuously running points
         ↓
-random mixtures / generic overcomplete local nonlinear coordinates
+many stable anonymous broadcasts
         ↓
-no coordinate is "the return channel"
+generic local coordinate fields
         ↓
-consequence + eligibility + finite growth
+finite structural capacity at each point
         ↓
-can a useful recurrent computational subspace acquire structural capacity?
+only some possible recurrent loops help the task
 ```
 
-Keep the loop at two points while attacking this. Do not simultaneously scale to a larger network.
+The task should require one or a few temporary states while providing many useless possible loops. Success is **not** merely memory accuracy; the grown recurrent subgraph should remain selective.
 
-Controls should include a no-memory world, time-varying coordinate shuffle, shuffled eligibility, cut-after-growth, and an ordinary trained recurrent attacker.
+Controls:
 
-Only if useful recurrence survives without hand-designed coordinates should the network expand.
+```text
+remove persistence requirement
+cut selected loops after growth
+shuffle structural addresses
+shuffle eligibility
+ordinary small trained RNN attacker
+```
+
+Do not simultaneously add learned geometry, a new dendritic mechanism, or another credit rule.
 
 ---
 
@@ -278,6 +270,7 @@ python experiments/gate11_continuous_loop.py
 python experiments/gate12_recurrent_loop.py
 python experiments/gate13_grow_the_loop.py
 python experiments/gate14_anonymous_return.py
+python experiments/gate15_generic_basis.py
 
 python -m unittest discover -s tests -v
 ```
@@ -288,4 +281,4 @@ Only NumPy is required.
 
 # Current surviving sentence
 
-> **A continuously running point can keep local state while broadcasting; recurrent traffic between points can itself carry state; finite consequence-driven growth can build the recurrent path when persistence is useful; and the useful return need not be pre-named, but it must occupy a stable structural address long enough for consequence to consolidate it. The next wall is whether that useful recurrent computation can be selected when even the local coordinate basis is generic rather than supplied.**
+> **A continuously running point can keep local state while broadcasting; recurrent traffic can carry state between points; finite consequence-driven growth can build recurrent structure when persistence is useful; useful return traffic need not be pre-named; and even the internal computational axes can be generic mixtures. What must remain stable is addressability itself, so delayed credit and structural investment keep referring to the same local computation.**
